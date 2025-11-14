@@ -1,7 +1,7 @@
 <?php
 /* customer_add.php – Create a new customer */
-include 'includes/db.php';
-include 'includes/header.php';
+include __DIR__ . '/includes/db.php';
+include __DIR__ . '/includes/header.php';
 
 /* ------- Handle INSERT ------- */
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -44,4 +44,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </p>
 </form>
 
-<?php include 'includes/footer.php'; ?>
+<?php include __DIR__ . '/includes/footer.php'; ?>

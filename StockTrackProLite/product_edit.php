@@ -1,6 +1,6 @@
 <?php
-include 'includes/db.php';
-include 'includes/header.php';
+include __DIR__ . '/includes/db.php';
+include __DIR__ . '/includes/header.php';
 
 $id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
 
@@ -25,7 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 /* load row */
 $row = mysql_fetch_assoc(mysql_query("SELECT * FROM products WHERE id=$id"));
-if (!$row) { echo "<p class='notice'>Product not found.</p>"; include 'includes/footer.php'; exit; }
+if (!$row) { echo "<p class='notice'>Product not found.</p>"; include __DIR__ . '/includes/footer.php'; exit; }
 
 /* categories for dropdown */
 $cats = mysql_query("SELECT id, name FROM categories ORDER BY name");
@@ -46,7 +46,9 @@ $cats = mysql_query("SELECT id, name FROM categories ORDER BY name");
             <option value="">- none -</option>
             <?php while ($c = mysql_fetch_assoc($cats)): ?>
                 <option value="<?php echo $c['id']; ?>"
-                    <?php if ($c['id']==$row['category_id']) echo 'selected'; ?>>
+                    <?php if ($c['id']==$row['category_id']) {
+    echo 'selected';
+} ?>>
                     <?php echo htmlspecialchars($c['name']); ?>
                 </option>
             <?php endwhile; ?>
@@ -67,4 +69,4 @@ $cats = mysql_query("SELECT id, name FROM categories ORDER BY name");
         <a href="products.php">Cancel</a>
     </p>
 </form>
-<?php include 'includes/footer.php'; ?>
+<?php include __DIR__ . '/includes/footer.php'; ?>

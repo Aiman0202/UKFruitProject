@@ -1,6 +1,6 @@
 <?php
-include 'includes/db.php';
-include 'includes/header.php';
+include __DIR__ . '/includes/db.php';
+include __DIR__ . '/includes/header.php';
 
 $id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
 
@@ -13,7 +13,7 @@ $hdr = mysql_fetch_assoc(mysql_query("
 "));
 if (!$hdr) {
     echo '<p class="notice">Order not found.</p>';
-    include 'includes/footer.php';
+    include __DIR__ . '/includes/footer.php';
     exit();
 }
 
@@ -46,4 +46,4 @@ $lines = mysql_query("
 
 <p><a href="orders.php">← Back to Orders</a></p>
 
-<?php include 'includes/footer.php'; ?>
+<?php include __DIR__ . '/includes/footer.php'; ?>

@@ -1,6 +1,6 @@
 <?php
-include 'includes/db.php';
-include 'includes/header.php';
+include __DIR__ . '/includes/db.php';
+include __DIR__ . '/includes/header.php';
 
 /* ---------- Handle INSERT ---------- */
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -64,4 +64,4 @@ $cats = mysql_query("SELECT id, name FROM categories ORDER BY name");
     </p>
 </form>
 
-<?php include 'includes/footer.php'; ?>
+<?php include __DIR__ . '/includes/footer.php'; ?>

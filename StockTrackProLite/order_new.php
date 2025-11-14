@@ -1,6 +1,6 @@
 <?php
-include 'includes/db.php';
-include 'includes/header.php';
+include __DIR__ . '/includes/db.php';
+include __DIR__ . '/includes/header.php';
 
 /* ---------------- Handle POST save ---------------- */
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -13,7 +13,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     foreach ($items as $pid => $qty) {
         $pid = (int)$pid;
         $qty = (int)$qty;
-        if ($qty <= 0) continue;
+        if ($qty <= 0) {
+            continue;
+        }
 
         /* get unit price */
         $p = mysql_fetch_assoc(mysql_query("SELECT price, stock FROM products WHERE id=$pid"));
@@ -82,4 +84,4 @@ $products  = mysql_query("SELECT id, name, price, stock FROM products ORDER BY n
     </p>
 </form>
 
-<?php include 'includes/footer.php'; ?>
+<?php include __DIR__ . '/includes/footer.php'; ?>

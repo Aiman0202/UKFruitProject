@@ -1,7 +1,7 @@
 <?php
 /* customer_edit.php – View / update single customer */
-include 'includes/db.php';
-include 'includes/header.php';
+include __DIR__ . '/includes/db.php';
+include __DIR__ . '/includes/header.php';
 
 $id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
 
@@ -29,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 $res = mysql_query("SELECT * FROM customers WHERE id=$id");
 if (!$row = mysql_fetch_assoc($res)) {
     echo '<p class="notice">Customer not found.</p>';
-    include 'includes/footer.php';
+    include __DIR__ . '/includes/footer.php';
     exit();
 }
 ?>
@@ -58,4 +58,4 @@ if (!$row = mysql_fetch_assoc($res)) {
     </p>
 </form>
 
-<?php include 'includes/footer.php'; ?>
+<?php include __DIR__ . '/includes/footer.php'; ?>

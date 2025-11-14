@@ -1,29 +1,28 @@
 <?php
 /* dashboard.php – legacy “sexy” summary */
-include 'includes/db.php';
-include 'includes/header.php';
+include __DIR__ . '/includes/db.php';
+include __DIR__ . '/includes/header.php';
 
 /* --- Quick KPIs --- */
-$totCust   = mysql_result(mysql_query("SELECT COUNT(*) FROM customers"), 0);
-$totProd   = mysql_result(mysql_query("SELECT COUNT(*) FROM products"), 0);
-$totOrders = mysql_result(mysql_query("SELECT COUNT(*) FROM orders"), 0);
+$totCust = mysqli_fetch_assoc(mysqli_query($conn, "SELECT COUNT(*) AS total FROM customers"))['total'];
+$totProd = mysqli_fetch_assoc(mysqli_query($conn, "SELECT COUNT(*) AS total FROM products"))['total'];
+$totOrders = mysqli_fetch_assoc(mysqli_query($conn, "SELECT COUNT(*) AS total FROM orders"))['total'];
+
 
 /* low-stock threshold */
-$lowCount = mysql_result(
-    mysql_query("SELECT COUNT(*) FROM products WHERE stock < 20"), 0);
+$lowCount = mysqli_fetch_assoc(mysqli_query($conn, "SELECT COUNT(*) AS total FROM products WHERE stock < 20"))['total'];
+
 
 /* orders this month */
-$monthOrders = mysql_result(
-    mysql_query("
-        SELECT COUNT(*)
-        FROM orders
-        WHERE YEAR(order_date)=YEAR(CURDATE())
-          AND MONTH(order_date)=MONTH(CURDATE())
-    "), 0);
+$monthOrders = mysqli_fetch_assoc(mysqli_query($conn, "SELECT COUNT(*) AS total
+    FROM orders
+    WHERE YEAR(order_date) = YEAR(CURDATE())
+      AND MONTH(order_date) = MONTH(CURDATE())
+"))['total'];
+
 
 /* most recent 5 orders */
-$recent = mysql_query("
-    SELECT o.id, o.order_date, o.total, c.name AS customer
+$recent = mysqli_query($conn, "SELECT o.id, o.order_date, o.total, c.name AS customer
     FROM orders o
     LEFT JOIN customers c ON c.id = o.customer_id
     ORDER BY o.order_date DESC
@@ -44,7 +43,7 @@ $recent = mysql_query("
 <table>
     <thead><tr><th>#</th><th>Date</th><th>Customer</th><th>Total (£)</th></tr></thead>
     <tbody>
-<?php while ($row = mysql_fetch_assoc($recent)): ?>
+<?php while ($row = mysqli_fetch_assoc($recent)): ?>
         <tr>
             <td><a href="order_view.php?id=<?php echo $row['id']; ?>">
                 <?php echo $row['id']; ?></a></td>
@@ -56,4 +55,4 @@ $recent = mysql_query("
     </tbody>
 </table>
 
-<?php include 'includes/footer.php'; ?>
+<?php include __DIR__ . '/includes/footer.php'; ?>
