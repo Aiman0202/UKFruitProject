@@ -8,22 +8,22 @@ $id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
 if ($id) {
 
     /* 1. Grab product + qty before deleting */
-    $row = mysql_fetch_assoc(mysql_query("
-        SELECT product_id, qty
+    $row = mysqli_fetch_assoc(mysqli_query($conn,
+       "SELECT product_id, qty
         FROM deliveries
         WHERE id = $id
     "));
 
     if ($row) {
         /* 2. Subtract quantity from product stock */
-        mysql_query("
-            UPDATE products
+        mysqli_query($conn,
+           "UPDATE products
             SET stock = stock - {$row['qty']}
             WHERE id = {$row['product_id']}
         ");
 
         /* 3. Now delete the delivery row */
-        mysql_query("DELETE FROM deliveries WHERE id = $id");
+        mysqli_query($conn, "DELETE FROM deliveries WHERE id = $id");
     }
 }
 

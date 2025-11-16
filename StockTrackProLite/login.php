@@ -1,6 +1,5 @@
 <?php
 // login.php  (place in StockTrackProLite root)
-
 session_start();
 
 // ---  VERY LEGACY / UNSAFE  ---

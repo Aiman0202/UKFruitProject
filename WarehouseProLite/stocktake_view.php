@@ -6,14 +6,13 @@ $takeId = isset($_GET['id']) ? (int)$_GET['id'] : 0;
 
 /* ---------- Final-approve handler ---------- */
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['finalise'])) {
-    mysql_query("UPDATE stock_takes SET reconciled='yes' WHERE id=$takeId");
+    mysqli_query($conn, "UPDATE stock_takes SET reconciled='yes' WHERE id=$takeId");
     header('Location: stocktakes.php');   // back to history list
     exit();
 }
 
 /* ---------- Pull variance lines ---------- */
-$lines = mysql_query("
-    SELECT p.id   AS pid,
+$lines = mysqli_query($conn, "SELECT p.id   AS pid,
            p.sku,
            p.name,
            p.stock              AS theoretical,
@@ -34,7 +33,7 @@ $lines = mysql_query("
 <tbody>
 <?php
 $outstanding = 0;
-while ($r = mysql_fetch_assoc($lines)):
+while ($r = mysqli_fetch_assoc($lines)):
     $absVar = abs($r['variance']);
     $rowStyle = ($absVar > 10) ? "style='background:#ffecec;color:#a00;'" : "";
     if ($r['variance'] != 0) $outstanding++;

@@ -5,8 +5,7 @@ include 'includes/header.php';
 /* -------------------------------------------------
    Stock-take list (JOIN + GROUP BY)
 ------------------------------------------------- */
-$sql = "
-    SELECT  t.id,
+$sql = "SELECT  t.id,
             t.taken_at,
             t.reconciled,
             COUNT(l.id) AS line_count
@@ -15,9 +14,9 @@ $sql = "
     GROUP BY t.id, t.taken_at, t.reconciled
     ORDER BY t.taken_at DESC
 ";
-$takes = mysql_query($sql);
+$takes = mysqli_query($conn, $sql);
 if (!$takes) {
-    die('<p class=\"notice\">Query failed: '.mysql_error().'</p>');
+    die('<p class=\"notice\">Query failed: '.mysqli_error($conn).'</p>');
 }
 ?>
 <h2>Stock-Take History</h2>
@@ -30,9 +29,9 @@ if (!$takes) {
     </tr>
   </thead>
   <tbody>
-  <?php if (mysql_num_rows($takes) === 0): ?>
+  <?php if (mysqli_num_rows($takes) === 0): ?>
       <tr><td colspan="5">No stock-takes recorded.</td></tr>
-  <?php else: while ($row = mysql_fetch_assoc($takes)): ?>
+  <?php else: while ($row = mysqli_fetch_assoc($takes)): ?>
       <?php
         $statusIcon = ($row['reconciled'] === 'yes')
             ? '<span style="color:#2e8b57;">&#10004;</span>'   // green check

@@ -11,8 +11,7 @@ if (isset($_GET['msg'])) {
 }
 
 /* ---------- fetch deliveries ---------- */
-$res = mysql_query("
-    SELECT d.id,
+$res = mysqli_query($conn, "SELECT d.id,
            d.received_at,
            d.qty,
            d.supplier_ref,
@@ -36,9 +35,9 @@ $res = mysql_query("
     </tr>
   </thead>
   <tbody>
-  <?php if (mysql_num_rows($res) === 0): ?>
+  <?php if (mysqli_num_rows($res) === 0): ?>
       <tr><td colspan="7">No deliveries recorded.</td></tr>
-  <?php else: while ($r = mysql_fetch_assoc($res)): ?>
+  <?php else: while ($r = mysqli_fetch_assoc($res)): ?>
       <tr>
         <td><?php echo $r['id']; ?></td>
         <td><?php echo $r['received_at']; ?></td>

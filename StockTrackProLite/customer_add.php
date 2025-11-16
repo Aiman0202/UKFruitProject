@@ -5,13 +5,13 @@ include __DIR__ . '/includes/header.php';
 
 /* ------- Handle INSERT ------- */
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $name    = mysql_real_escape_string($_POST['name']);
-    $phone   = mysql_real_escape_string($_POST['phone']);
-    $email   = mysql_real_escape_string($_POST['email']);
-    $address = mysql_real_escape_string($_POST['address']);
+    $name    = mysqli_real_escape_string($conn, $_POST['name']);
+    $phone   = mysqli_real_escape_string($conn, $_POST['phone']);
+    $email   = mysqli_real_escape_string($conn, $_POST['email']);
+    $address = mysqli_real_escape_string($conn, $_POST['address']);
 
-    mysql_query("
-        INSERT INTO customers (name, phone, email, address)
+    mysqli_query($conn, 
+       "INSERT INTO customers (name, phone, email, address)
         VALUES ('$name', '$phone', '$email', '$address')
     ");
 

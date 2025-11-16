@@ -10,13 +10,13 @@ include 'includes/header.php';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $pid   = (int)$_POST['product_id'];
     $delta = (int)$_POST['qty_delta'];
-    $reason= mysql_real_escape_string($_POST['reason']);
+    $reason= mysqli_real_escape_string($conn, $_POST['reason']);
 
     /* approved_by could be the logged-in user’s ID; using 0 for legacy demo */
     $uid   = isset($_SESSION['wh_user_id']) ? (int)$_SESSION['wh_user_id'] : 'NULL';
 
-    mysql_query("
-        INSERT INTO adjustments (product_id, qty_delta, reason, approved_by, created_at)
+    mysqli_query($conn, 
+        "INSERT INTO adjustments (product_id, qty_delta, reason, approved_by, created_at)
         VALUES ($pid, $delta, '$reason', $uid, NOW())
     ");
 
@@ -26,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 /* ---------- Load products for drop-down ---------- */
-$prods = mysql_query("SELECT id, sku, name FROM products ORDER BY name");
+$prods = mysqli_query($conn, "SELECT id, sku, name FROM products ORDER BY name");
 
 /* Pre-fill fields if called from stock-take variance link */
 $prefillPid   = isset($_GET['pid'])   ? (int)$_GET['pid']   : '';
@@ -38,7 +38,7 @@ $prefillDelta = isset($_GET['delta']) ? (int)$_GET['delta'] : '';
     <label>Product
         <select name="product_id" required>
             <option value="">-- select --</option>
-            <?php while ($p = mysql_fetch_assoc($prods)): ?>
+            <?php while ($p = mysqli_fetch_assoc($prods)): ?>
                 <option value="<?php echo $p['id']; ?>"
                     <?php if ($p['id'] == $prefillPid) echo 'selected'; ?>>
                     <?php echo $p['sku'].' - '.htmlspecialchars($p['name']); ?>
