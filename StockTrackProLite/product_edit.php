@@ -6,8 +6,8 @@ $id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
 
 /* ---------- save ---------- */
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $sku  = mysqli_real_escape_string($_POST['sku']);
-    $name = mysqli_real_escape_string($_POST['name']);
+    $sku  = mysqli_real_escape_string($conn, $_POST['sku']);
+    $name = mysqli_real_escape_string($conn, $_POST['name']);
     $cat  = (int)$_POST['category_id'];
     $price= (float)$_POST['price'];
     $stock= (int)$_POST['stock'];

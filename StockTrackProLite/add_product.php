@@ -42,7 +42,7 @@ $cats = mysqli_query($conn, "SELECT id, name FROM categories ORDER BY name");
     <label>Category
         <select name="category_id">
             <option value="">- none -</option>
-            <?php while ($c = mysql_fetch_assoc($cats)): ?>
+            <?php while ($c = mysqli_fetch_assoc($cats)): ?>
                 <option value="<?php echo $c['id']; ?>">
                     <?php echo htmlspecialchars($c['name']); ?>
                 </option>
