@@ -15,7 +15,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($row = mysqli_fetch_assoc($res)) {
 
-        /* valid login — store details */
         $_SESSION['wh_user_id'] = $row['id'];
         $_SESSION['wh_user']    = $row['username'];
         $_SESSION['wh_role']    = $row['role'];
