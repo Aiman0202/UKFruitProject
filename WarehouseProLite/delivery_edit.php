@@ -14,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     /* fetch old row (needed if you adjust stock) */
     $old = mysqli_fetch_assoc(mysqli_query($conn, "SELECT product_id, qty FROM deliveries WHERE id=$id"));
 
-    mysqli_query($conn, $conn,
+    mysqli_query($conn,
        "UPDATE deliveries
         SET product_id = $pidNew,
             qty        = $qtyNew,
