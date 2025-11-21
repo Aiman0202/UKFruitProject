@@ -7,6 +7,7 @@ $res = mysqli_query($conn, "SELECT p.id, p.sku, p.name, p.price, p.stock,
            IFNULL(c.name,'-') AS category
     FROM products p
     LEFT JOIN categories c ON c.id = p.category_id
+    WHERE p.is_active = 1
     ORDER BY p.name
 ");
 
