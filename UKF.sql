@@ -321,35 +321,8 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'admin','21232f297a57a5a743894a0e4a801fc3','admin');
+INSERT INTO `users` VALUES (1,'admin','21232f297a57a5a743894a0e4a801fc3','Admin'); /*, (2, 'jl_1234', '', 'Lead Office Administrator'), (3, 'wh_manager', '', 'Warehouse Manager'), (4, 'qa_lead', '', 'QA Lead'), (5, 'qa_tech', '', 'QA Tech'), (6, 'wh_clerk', '', 'Warehouse Operative'), (7, 'wh_clerk', '', 'Warehouse Operative'), (8, 'BWilson', '', 'Office Assistant'), (9, 'gf84', '', 'Client Relations Officer'), (10, 'ks_1998', '', 'HR'), (11, 'immy_0092', '', 'Finance');*/
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `wh_users`
---
-
-DROP TABLE IF EXISTS `wh_users`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8mb4 */;
-CREATE TABLE `wh_users` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `username` varchar(50) DEFAULT NULL,
-  `password` char(32) DEFAULT NULL,
-  `role` enum('manager','clerk','qa') NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `username` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `wh_users`
---
-
-LOCK TABLES `wh_users` WRITE;
-/*!40000 ALTER TABLE `wh_users` DISABLE KEYS */;
-INSERT INTO `wh_users` VALUES (7,'wh_manager','','manager'),(8,'wh_clerk','','clerk'),(9,'qa_tech','','qa');
-/*!40000 ALTER TABLE `wh_users` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
