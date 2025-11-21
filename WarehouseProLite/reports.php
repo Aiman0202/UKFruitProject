@@ -4,8 +4,7 @@ include 'includes/db.php';
 include 'includes/header.php';
 
 /* 1. Deliveries received today ----------------------- */
-$delivToday = mysql_query("
-    SELECT d.id,
+$delivToday = mysqli_query($conn, "SELECT d.id,
            d.received_at,
            p.sku,
            p.name,
@@ -18,8 +17,7 @@ $delivToday = mysql_query("
 ");
 
 /* 2. Adjustments last 30 days ------------------------ */
-$adj30 = mysql_query("
-    SELECT a.id,
+$adj30 = mysqli_query($conn, "SELECT a.id,
            a.created_at,
            p.sku,
            p.name,
@@ -32,8 +30,7 @@ $adj30 = mysql_query("
 ");
 
 /* 3. QA samples that failed in last 30 days ---------- */
-$qaFail = mysql_query("
-    SELECT q.id,
+$qaFail = mysqli_query($conn, "SELECT q.id,
            q.sample_time,
            p.sku,
            p.name,
@@ -53,9 +50,9 @@ $qaFail = mysql_query("
 <table>
   <thead><tr><th>ID</th><th>Time</th><th>SKU</th><th>Name</th><th>Qty</th><th>Supplier Ref</th></tr></thead>
   <tbody>
-  <?php if (mysql_num_rows($delivToday)==0): ?>
+  <?php if (mysqli_num_rows($delivToday)==0): ?>
     <tr><td colspan="6">No deliveries recorded today.</td></tr>
-  <?php else: while ($r=mysql_fetch_assoc($delivToday)): ?>
+  <?php else: while ($r=mysqli_fetch_assoc($delivToday)): ?>
     <tr>
       <td><?php echo $r['id']; ?></td>
       <td><?php echo date('H:i',strtotime($r['received_at'])); ?></td>
@@ -73,9 +70,9 @@ $qaFail = mysql_query("
 <table>
   <thead><tr><th>ID</th><th>Date</th><th>SKU</th><th>Name</th><th>Δ Qty</th><th>Reason</th></tr></thead>
   <tbody>
-  <?php if (mysql_num_rows($adj30)==0): ?>
+  <?php if (mysqli_num_rows($adj30)==0): ?>
     <tr><td colspan="6">No adjustments in last 30 days.</td></tr>
-  <?php else: while ($r=mysql_fetch_assoc($adj30)): ?>
+  <?php else: while ($r=mysqli_fetch_assoc($adj30)): ?>
     <tr>
       <td><?php echo $r['id']; ?></td>
       <td><?php echo date('Y-m-d',strtotime($r['created_at'])); ?></td>
@@ -93,9 +90,9 @@ $qaFail = mysql_query("
 <table>
   <thead><tr><th>ID</th><th>Date</th><th>SKU</th><th>Name</th><th>Brix</th><th>Temp °C</th></tr></thead>
   <tbody>
-  <?php if (mysql_num_rows($qaFail)==0): ?>
+  <?php if (mysqli_num_rows($qaFail)==0): ?>
     <tr><td colspan="6">No failed QA samples in last 30 days.</td></tr>
-  <?php else: while ($r=mysql_fetch_assoc($qaFail)): ?>
+  <?php else: while ($r=mysqli_fetch_assoc($qaFail)): ?>
     <tr>
       <td><?php echo $r['id']; ?></td>
       <td><?php echo date('Y-m-d',strtotime($r['sample_time'])); ?></td>

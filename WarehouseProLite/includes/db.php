@@ -1,5 +1,12 @@
 <?php
-$conn = mysql_connect("127.0.0.1:3306", "root", "");
-mysql_select_db("stocktrackpro", $conn);
-mysql_set_charset('utf8', $conn);  
+// Connect to MySQL using mysqli
+$conn = mysqli_connect("127.0.0.1", "root", "", "stocktrackpro", 3306);
+
+// Check connection
+if (!$conn) {
+    die("Connection failed: " . mysqli_connect_error());
+}
+
+// Set charset to UTF-8
+mysqli_set_charset($conn, "utf8");
 ?>

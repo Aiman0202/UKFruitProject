@@ -11,8 +11,7 @@ if (isset($_GET['msg'])) {
 }
 
 /* ---------- fetch samples (latest first) ---------- */
-$samples = mysql_query("
-    SELECT q.id,
+$samples = mysqli_query($conn, "SELECT q.id,
            q.sample_time,
            p.sku,
            p.name,
@@ -37,9 +36,9 @@ $samples = mysql_query("
     </tr>
   </thead>
   <tbody>
-  <?php if (mysql_num_rows($samples) === 0): ?>
+  <?php if (mysqli_num_rows($samples) === 0): ?>
       <tr><td colspan="8">No QA samples recorded.</td></tr>
-  <?php else: while ($r = mysql_fetch_assoc($samples)): ?>
+  <?php else: while ($r = mysqli_fetch_assoc($samples)): ?>
       <?php
         /* highlight fails */
         $rowStyle = ($r['passed'] === 'no') ? "style='background:#ffecec;color:#a00;'" : "";

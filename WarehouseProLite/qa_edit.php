@@ -10,11 +10,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $pid   = (int)$_POST['product_id'];
     $brix  = $_POST['brix'] !== '' ? (float)$_POST['brix'] : 'NULL';
     $temp  = $_POST['temperature'] !== '' ? (float)$_POST['temperature'] : 'NULL';
-    $pass  = mysql_real_escape_string($_POST['passed']);
-    $note  = mysql_real_escape_string($_POST['note']);
+    $pass  = mysqli_real_escape_string($conn, $_POST['passed']);
+    $note  = mysqli_real_escape_string($conn, $_POST['note']);
 
-    mysql_query("
-        UPDATE qa_samples
+    mysqli_query($conn,
+       "UPDATE qa_samples
         SET product_id  = $pid,
             brix        = $brix,
             temperature = $temp,
@@ -28,8 +28,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 /* ---------- Load existing row ---------- */
-$row = mysql_fetch_assoc(mysql_query("
-    SELECT q.*, p.sku, p.name
+$row = mysqli_fetch_assoc(mysqli_query($conn,
+   "SELECT q.*, p.sku, p.name
     FROM qa_samples q
     JOIN products p ON p.id = q.product_id
     WHERE q.id = $id
@@ -41,14 +41,14 @@ if (!$row) {
 }
 
 /* Products for dropdown */
-$prods = mysql_query("SELECT id, sku, name FROM products ORDER BY name");
+$prods = mysqli_query($conn, "SELECT id, sku, name FROM products ORDER BY name");
 ?>
 <h2>Edit QA Sample #<?php echo $id; ?></h2>
 
 <form action="qa_edit.php?id=<?php echo $id; ?>" method="post">
     <label>Product
         <select name="product_id" required>
-            <?php while ($p = mysql_fetch_assoc($prods)): ?>
+            <?php while ($p = mysqli_fetch_assoc($prods)): ?>
                 <option value="<?php echo $p['id']; ?>"
                     <?php if ($p['id'] == $row['product_id']) echo 'selected'; ?>>
                     <?php echo $p['sku'].' - '.htmlspecialchars($p['name']); ?>

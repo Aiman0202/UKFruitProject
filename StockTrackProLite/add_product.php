@@ -1,17 +1,17 @@
 <?php
-include 'includes/db.php';
-include 'includes/header.php';
+include __DIR__ . '/includes/db.php';
+include __DIR__ . '/includes/header.php';
 
 /* ---------- Handle INSERT ---------- */
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $sku   = mysql_real_escape_string($_POST['sku']);
-    $name  = mysql_real_escape_string($_POST['name']);
+    $sku   = mysqli_real_escape_string($conn, $_POST['sku']);
+    $name  = mysqli_real_escape_string($conn, $_POST['name']);
     $cat   = (int)$_POST['category_id'];
     $price = (float)$_POST['price'];
     $stock = (int)$_POST['stock'];
 
-    mysql_query("
-        INSERT INTO products (sku, name, category_id, price, stock)
+    mysqli_query($conn,
+       "INSERT INTO products (sku, name, category_id, price, stock)
         VALUES (
             '$sku',
             '$name',
@@ -26,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 /* ------- Load categories for drop-down ------- */
-$cats = mysql_query("SELECT id, name FROM categories ORDER BY name");
+$cats = mysqli_query($conn, "SELECT id, name FROM categories ORDER BY name");
 ?>
 <h2>Add Product</h2>
 
@@ -42,7 +42,7 @@ $cats = mysql_query("SELECT id, name FROM categories ORDER BY name");
     <label>Category
         <select name="category_id">
             <option value="">- none -</option>
-            <?php while ($c = mysql_fetch_assoc($cats)): ?>
+            <?php while ($c = mysqli_fetch_assoc($cats)): ?>
                 <option value="<?php echo $c['id']; ?>">
                     <?php echo htmlspecialchars($c['name']); ?>
                 </option>
@@ -64,4 +64,4 @@ $cats = mysql_query("SELECT id, name FROM categories ORDER BY name");
     </p>
 </form>
 
-<?php include 'includes/footer.php'; ?>
+<?php include __DIR__ . '/includes/footer.php'; ?>

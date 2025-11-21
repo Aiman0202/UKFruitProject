@@ -1,11 +1,10 @@
 <?php
 /* customers.php  –  List + simple actions */
-include 'includes/db.php';
-include 'includes/header.php';
+include __DIR__ . '/includes/db.php';
+include __DIR__ . '/includes/header.php';
 
 /* Fetch all customers (alphabetical) */
-$result = mysql_query("
-    SELECT id, name, phone, email, address
+$result = mysqli_query($conn, "SELECT id, name, phone, email, address
     FROM customers
     ORDER BY name ASC
 ");
@@ -35,8 +34,8 @@ if (isset($_GET['msg']) && $_GET['msg'] === 'deleted') {
         </tr>
     </thead>
     <tbody>
-<?php if (mysql_num_rows($result) > 0): ?>
-    <?php while ($row = mysql_fetch_assoc($result)): ?>
+<?php if (mysqli_num_rows($result) > 0): ?>
+    <?php while ($row = mysqli_fetch_assoc($result)): ?>
         <tr>
             <td><?php echo htmlspecialchars($row['name']); ?></td>
             <td><?php echo htmlspecialchars($row['phone']); ?></td>
@@ -55,4 +54,4 @@ if (isset($_GET['msg']) && $_GET['msg'] === 'deleted') {
     </tbody>
 </table>
 
-<?php include 'includes/footer.php'; ?>
+<?php include __DIR__ . '/includes/footer.php'; ?>

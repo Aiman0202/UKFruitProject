@@ -9,17 +9,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['create_take'])) {
     /* use real clerk id, or NULL if not stored in session */
     $clerk = isset($_SESSION['wh_user_id']) ? (int)$_SESSION['wh_user_id'] : 'NULL';
 
-    mysql_query("
-        INSERT INTO stock_takes (taken_at, clerk_id, note)
+    mysqli_query($conn, "INSERT INTO stock_takes (taken_at, clerk_id, note)
         VALUES (NOW(), $clerk, '')
     ");
 
     /* bail if insert failed */
-    if (!mysql_insert_id()) {
-        die('Insert failed: '.mysql_error());
+    if (!mysqli_insert_id($conn)) {
+        die('Insert failed: '.mysqli_error($conn));
     }
 
-    $takeId = mysql_insert_id();
+    $takeId = mysqli_insert_id($conn);
 
     /* use double quotes so $takeId is interpolated */
     header("Location: stocktake_new.php?take=$takeId");
@@ -34,8 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save_lines'])) {
         $pid  = (int)$pid;
         $qty  = (int)$qty;
         if ($qty === 0) continue;   // skip blanks
-        mysql_query("
-            INSERT INTO stock_take_lines (stock_take_id, product_id, counted_qty)
+        mysqli_query($conn, "INSERT INTO stock_take_lines (stock_take_id, product_id, counted_qty)
             VALUES ($takeId, $pid, $qty)
             ON DUPLICATE KEY UPDATE counted_qty=$qty
         ");
@@ -61,7 +59,7 @@ endif;
 
 /* ---------- Show counting form ---------- */
 $takeId = (int)$_GET['take'];
-$prods  = mysql_query("SELECT id, sku, name, stock FROM products ORDER BY name");
+$prods  = mysqli_query($conn, "SELECT id, sku, name, stock FROM products ORDER BY name");
 ?>
 <h2>Stock-Take #<?php echo $takeId; ?></h2>
 <form method="post">
@@ -69,7 +67,7 @@ $prods  = mysql_query("SELECT id, sku, name, stock FROM products ORDER BY name")
 <table>
 <thead><tr><th>SKU</th><th>Name</th><th>Theoretical</th><th>Counted Qty</th></tr></thead>
 <tbody>
-<?php while ($p = mysql_fetch_assoc($prods)): ?>
+<?php while ($p = mysqli_fetch_assoc($prods)): ?>
 <tr>
     <td><?php echo $p['sku']; ?></td>
     <td><?php echo htmlspecialchars($p['name']); ?></td>

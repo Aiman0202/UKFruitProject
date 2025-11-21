@@ -9,13 +9,13 @@ $id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $pidNew = (int)$_POST['product_id'];
     $qtyNew = (int)$_POST['qty'];
-    $refNew = mysql_real_escape_string($_POST['ref']);
+    $refNew = mysqli_real_escape_string($conn, $_POST['ref']);
 
     /* fetch old row (needed if you adjust stock) */
-    $old = mysql_fetch_assoc(mysql_query("SELECT product_id, qty FROM deliveries WHERE id=$id"));
+    $old = mysqli_fetch_assoc(mysqli_query($conn, "SELECT product_id, qty FROM deliveries WHERE id=$id"));
 
-    mysql_query("
-        UPDATE deliveries
+    mysqli_query($conn,
+       "UPDATE deliveries
         SET product_id = $pidNew,
             qty        = $qtyNew,
             supplier_ref = '$refNew'
@@ -26,8 +26,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 /* same SKU updated */
 if ($pidNew == $old['product_id']) {
-    mysql_query("
-        UPDATE products
+    mysqli_query($conn, 
+       "UPDATE products
         SET stock = stock + $delta
         WHERE id = $pidNew
     ");
@@ -35,14 +35,14 @@ if ($pidNew == $old['product_id']) {
 /* SKU was changed */
 else {
     /* subtract from old product */
-    mysql_query("
-        UPDATE products
+    mysqli_query($conn, 
+       "UPDATE products
         SET stock = stock - {$old['qty']}
         WHERE id = {$old['product_id']}
     ");
     /* add to new product */
-    mysql_query("
-        UPDATE products
+    mysqli_query($conn, 
+       "UPDATE products
         SET stock = stock + $qtyNew
         WHERE id = $pidNew
     ");
@@ -54,8 +54,8 @@ else {
 }
 
 /* ---------- Load existing row ---------- */
-$row = mysql_fetch_assoc(mysql_query("
-    SELECT d.*, p.sku, p.name
+$row = mysqli_fetch_assoc(mysqli_query($conn, 
+   "SELECT d.*, p.sku, p.name
     FROM deliveries d
     JOIN products p ON p.id = d.product_id
     WHERE d.id = $id
@@ -67,14 +67,14 @@ if (!$row) {
 }
 
 /* Products for dropdown */
-$prods = mysql_query("SELECT id, sku, name FROM products ORDER BY name");
+$prods = mysqli_query($conn, "SELECT id, sku, name FROM products ORDER BY name");
 ?>
 <h2>Edit Delivery #<?php echo $id; ?></h2>
 
 <form action="delivery_edit.php?id=<?php echo $id; ?>" method="post">
     <label>Product
         <select name="product_id" required>
-            <?php while ($p = mysql_fetch_assoc($prods)): ?>
+            <?php while ($p = mysqli_fetch_assoc($prods)): ?>
                 <option value="<?php echo $p['id']; ?>"
                     <?php if ($p['id'] == $row['product_id']) echo 'selected'; ?>>
                     <?php echo $p['sku'].' - '.htmlspecialchars($p['name']); ?>

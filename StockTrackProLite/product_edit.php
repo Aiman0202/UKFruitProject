@@ -1,19 +1,19 @@
 <?php
-include 'includes/db.php';
-include 'includes/header.php';
+include __DIR__ . '/includes/db.php';
+include __DIR__ . '/includes/header.php';
 
 $id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
 
 /* ---------- save ---------- */
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $sku  = mysql_real_escape_string($_POST['sku']);
-    $name = mysql_real_escape_string($_POST['name']);
+    $sku  = mysqli_real_escape_string($conn, $_POST['sku']);
+    $name = mysqli_real_escape_string($conn, $_POST['name']);
     $cat  = (int)$_POST['category_id'];
     $price= (float)$_POST['price'];
     $stock= (int)$_POST['stock'];
 
-    mysql_query("
-        UPDATE products SET
+    mysqli_query($conn, 
+           "UPDATE products SET
             sku='$sku', name='$name',
             category_id=".($cat?:'NULL').",
             price=$price, stock=$stock
@@ -24,11 +24,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 /* load row */
-$row = mysql_fetch_assoc(mysql_query("SELECT * FROM products WHERE id=$id"));
-if (!$row) { echo "<p class='notice'>Product not found.</p>"; include 'includes/footer.php'; exit; }
+$row = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM products WHERE id=$id"));
+if (!$row) { echo "<p class='notice'>Product not found.</p>"; include __DIR__ . '/includes/footer.php'; exit; }
 
 /* categories for dropdown */
-$cats = mysql_query("SELECT id, name FROM categories ORDER BY name");
+$cats = mysqli_query($conn, "SELECT id, name FROM categories ORDER BY name");
 ?>
 <h2>Edit Product</h2>
 
@@ -44,9 +44,11 @@ $cats = mysql_query("SELECT id, name FROM categories ORDER BY name");
     <label>Category
         <select name="category_id">
             <option value="">- none -</option>
-            <?php while ($c = mysql_fetch_assoc($cats)): ?>
+            <?php while ($c = mysqli_fetch_assoc($cats)): ?>
                 <option value="<?php echo $c['id']; ?>"
-                    <?php if ($c['id']==$row['category_id']) echo 'selected'; ?>>
+                    <?php if ($c['id']==$row['category_id']) {
+    echo 'selected';
+} ?>>
                     <?php echo htmlspecialchars($c['name']); ?>
                 </option>
             <?php endwhile; ?>
@@ -67,4 +69,4 @@ $cats = mysql_query("SELECT id, name FROM categories ORDER BY name");
         <a href="products.php">Cancel</a>
     </p>
 </form>
-<?php include 'includes/footer.php'; ?>
+<?php include __DIR__ . '/includes/footer.php'; ?>
