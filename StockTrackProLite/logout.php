@@ -7,5 +7,5 @@ session_unset();
 session_destroy();
 
 /* Redirect back to the login page */
-header('Location: access.html');
+header('Location: index.php');
 exit();
