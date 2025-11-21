@@ -9,8 +9,7 @@ if (isset($_GET['msg']) && $_GET['msg'] === 'deleted') {
 }
 
 /* Fetch journal */
-$res = mysql_query("
-    SELECT  a.id,
+$res = mysqli_query($conn, "SELECT  a.id,
             a.qty_delta,
             a.reason,
             a.created_at,
@@ -34,9 +33,9 @@ $res = mysql_query("
         </tr>
     </thead>
     <tbody>
-<?php if (mysql_num_rows($res) === 0): ?>
+<?php if (mysqli_num_rows($res) === 0): ?>
         <tr><td colspan="7">No adjustments yet.</td></tr>
-<?php else: while ($r = mysql_fetch_assoc($res)): ?>
+<?php else: while ($r = mysqli_fetch_assoc($res)): ?>
         <tr>
             <td><?php echo $r['id']; ?></td>
             <td><?php echo $r['created_at']; ?></td>

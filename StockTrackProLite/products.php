@@ -1,15 +1,15 @@
 <?php
-include 'includes/db.php';
-include 'includes/header.php';
+include __DIR__ . '/includes/db.php';
+include __DIR__ . '/includes/header.php';
 
 /* join categories so we can show the name */
-$res = mysql_query("
-    SELECT p.id, p.sku, p.name, p.price, p.stock,
+$res = mysqli_query($conn, "SELECT p.id, p.sku, p.name, p.price, p.stock,
            IFNULL(c.name,'-') AS category
     FROM products p
     LEFT JOIN categories c ON c.id = p.category_id
     ORDER BY p.name
 ");
+
 ?>
 <h2>Products</h2>
 
@@ -25,9 +25,9 @@ $res = mysql_query("
         </tr>
     </thead>
     <tbody>
-<?php if (mysql_num_rows($res) === 0): ?>
+<?php if (mysqli_num_rows($res) === 0): ?>
         <tr><td colspan="6">No products yet.</td></tr>
-<?php else: while ($row = mysql_fetch_assoc($res)): ?>
+<?php else: while ($row = mysqli_fetch_assoc($res)): ?>
         <tr>
             <td><?php echo htmlspecialchars($row['sku']); ?></td>
             <td><?php echo htmlspecialchars($row['name']); ?></td>
@@ -45,4 +45,4 @@ $res = mysql_query("
     </tbody>
 </table>
 
-<?php include 'includes/footer.php'; ?>
+<?php include __DIR__ . '/includes/footer.php'; ?>

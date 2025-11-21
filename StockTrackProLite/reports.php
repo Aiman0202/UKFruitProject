@@ -1,12 +1,11 @@
 <?php
 /* reports.php – reporting hub (very legacy visual) */
-include 'includes/db.php';
-include 'includes/header.php';
+include __DIR__ . '/includes/db.php';
+include __DIR__ . '/includes/header.php';
 
 /* 1. Monthly sales (last 12 months) */
-$monthly = mysql_query("
-    SELECT DATE_FORMAT(order_date,'%Y-%m') AS ym,
-           COUNT(*)  AS orders,
+$monthly = mysqli_query($conn, "SELECT DATE_FORMAT(order_date,'%Y-%m') AS ym,
+           COUNT(*) AS orders,
            SUM(total) AS revenue
     FROM orders
     WHERE order_date >= DATE_SUB(CURDATE(), INTERVAL 12 MONTH)
@@ -14,9 +13,10 @@ $monthly = mysql_query("
     ORDER BY ym
 ");
 
+$monthlyData = mysqli_fetch_all($monthly, MYSQLI_ASSOC);
+
 /* 2. Top 5 customers by spend (last 12 months) */
-$topCust = mysql_query("
-    SELECT c.name,
+$topCust = mysqli_query($conn, "SELECT c.name,
            COUNT(o.id)  AS num_orders,
            SUM(o.total) AS spend
     FROM orders o
@@ -27,21 +27,20 @@ $topCust = mysql_query("
     LIMIT 5
 ");
 
+$topCustomers = mysqli_fetch_all($topCust, MYSQLI_ASSOC);
+
 /* 3. Low-stock products (< 20) */
-$lowStock = mysql_query("
-    SELECT sku, name, stock
+$lowStock = mysqli_query($conn, "SELECT sku, name, stock
     FROM products
     WHERE stock < 20
     ORDER BY stock ASC
 ");
 
-/* Build arrays for the (very old) Chart.js v1 API */
-$labels   = [];
-$revenues = [];
-while ($row = mysql_fetch_assoc($monthly)) {
-    $labels[]   = $row['ym'];
-    $revenues[] = round($row['revenue'], 2);
-}
+$lowStockItems = mysqli_fetch_all($lowStock, MYSQLI_ASSOC);
+
+// labels and revenues for chart
+$labels   = array_column($monthlyData, 'ym');
+$revenues = array_map(fn($row) => round($row['revenue'], 2), $monthlyData);
 ?>
 
 <h2>Reports</h2>
@@ -73,7 +72,7 @@ new Chart(ctx).Bar(data, {
 <table>
     <thead><tr><th>Customer</th><th>Orders</th><th>Spend (£)</th></tr></thead>
     <tbody>
-    <?php while ($row = mysql_fetch_assoc($topCust)): ?>
+    <?php while ($row = mysqli_fetch_assoc($topCust)): ?>
         <tr>
             <td><?php echo htmlspecialchars($row['name']); ?></td>
             <td><?php echo $row['num_orders']; ?></td>
@@ -87,9 +86,9 @@ new Chart(ctx).Bar(data, {
 <table>
     <thead><tr><th>SKU</th><th>Name</th><th>Stock</th></tr></thead>
     <tbody>
-    <?php if (mysql_num_rows($lowStock) === 0): ?>
+    <?php if (mysqli_num_rows($lowStock) === 0): ?>
         <tr><td colspan="3">No items below threshold.</td></tr>
-    <?php else: while ($row = mysql_fetch_assoc($lowStock)): ?>
+    <?php else: while ($row = mysqli_fetch_assoc($lowStock)): ?>
         <tr>
             <td><?php echo htmlspecialchars($row['sku']); ?></td>
             <td><?php echo htmlspecialchars($row['name']); ?></td>
@@ -99,4 +98,4 @@ new Chart(ctx).Bar(data, {
     </tbody>
 </table>
 
-<?php include 'includes/footer.php'; ?>
+<?php include __DIR__ . '/includes/footer.php'; ?>

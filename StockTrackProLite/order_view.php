@@ -1,25 +1,25 @@
 <?php
-include 'includes/db.php';
-include 'includes/header.php';
+include __DIR__ . '/includes/db.php';
+include __DIR__ . '/includes/header.php';
 
 $id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
 
 /* header */
-$hdr = mysql_fetch_assoc(mysql_query("
-    SELECT o.*, c.name AS customer
+$hdr = mysqli_fetch_assoc(mysqli_query($conn, 
+   "SELECT o.*, c.name AS customer
     FROM orders o
     LEFT JOIN customers c ON c.id = o.customer_id
     WHERE o.id=$id
 "));
 if (!$hdr) {
     echo '<p class="notice">Order not found.</p>';
-    include 'includes/footer.php';
+    include __DIR__ . '/includes/footer.php';
     exit();
 }
 
 /* lines */
-$lines = mysql_query("
-    SELECT oi.*, p.name
+$lines = mysqli_query($conn, 
+   "SELECT oi.*, p.name
     FROM order_items oi
     LEFT JOIN products p ON p.id = oi.product_id
     WHERE oi.order_id=$id
@@ -33,7 +33,7 @@ $lines = mysql_query("
 <table>
     <thead><tr><th>Product</th><th>Qty</th><th>Unit £</th><th>Line £</th></tr></thead>
     <tbody>
-    <?php while ($l = mysql_fetch_assoc($lines)): ?>
+    <?php while ($l = mysqli_fetch_assoc($lines)): ?>
         <tr>
             <td><?php echo htmlspecialchars($l['name']); ?></td>
             <td><?php echo $l['quantity']; ?></td>
@@ -46,4 +46,4 @@ $lines = mysql_query("
 
 <p><a href="orders.php">← Back to Orders</a></p>
 
-<?php include 'includes/footer.php'; ?>
+<?php include __DIR__ . '/includes/footer.php'; ?>

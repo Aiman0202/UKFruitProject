@@ -1,18 +1,31 @@
 <?php
 // login.php  (place in StockTrackProLite root)
-
 session_start();
-
-// ---  VERY LEGACY / UNSAFE  ---
-// Accept *any* credentials and mark the user as logged-in.
-// Replace this with a real lookup + hashing.
+include 'includes/db.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $_SESSION['user'] = isset($_POST['username']) ? $_POST['username'] : 'demo';
-    $_SESSION['role'] = 'admin';           // default for now
-    header('Location: dashboard.php');
-    exit();
+
+    $u = mysqli_real_escape_string($conn, $_POST['username']);
+    $p = md5($_POST['password']);
+
+    $res = mysqli_query($conn, "SELECT id, username, role
+        FROM users
+        WHERE username='$u' AND password='$p'
+        LIMIT 1
+    ");
+
+    if ($row = mysqli_fetch_assoc($res)) {
+
+        $_SESSION['user_id'] = $row['id'];
+        $_SESSION['user']    = $row['username'];
+        $_SESSION['role']    = $row['role'];
+
+        header('Location: dashboard.php');
+        exit();
+    }
 }
 
-// If someone hit /login.php directly (GET) show the login form again.
-header('Location: index.php');
+/* failed login — back to index with error flag */
+header('Location: index.php?error=1');
+exit();
+?>

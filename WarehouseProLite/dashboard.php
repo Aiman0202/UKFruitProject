@@ -3,22 +3,21 @@
 include 'includes/db.php';
 include 'includes/header.php';
 
-/* ------- KPI queries (all legacy mysql_* calls) ------- */
-$totalDeliveries = mysql_result(
-    mysql_query("SELECT COUNT(*) FROM deliveries"), 0);
+$totalDeliveries = mysqli_fetch_assoc(
+    mysqli_query($conn, "SELECT COUNT(*) AS c FROM deliveries"))['c'];
 
-$todayDeliveries = mysql_result(
-    mysql_query("SELECT COUNT(*) FROM deliveries
-                 WHERE DATE(received_at) = CURDATE()"), 0);
+$todayDeliveries = mysqli_fetch_assoc(
+    mysqli_query($conn, "SELECT COUNT(*) AS c FROM deliveries
+                 WHERE DATE(received_at) = CURDATE()"))['c'];
 
-$recentAdjust = mysql_result(
-    mysql_query("SELECT COUNT(*) FROM adjustments
-                 WHERE created_at >= DATE_SUB(CURDATE(), INTERVAL 30 DAY)"), 0);
+$recentAdjust = mysqli_fetch_assoc(
+    mysqli_query($conn, "SELECT COUNT(*) AS c FROM adjustments
+                 WHERE created_at >= DATE_SUB(CURDATE(), INTERVAL 30 DAY)"))['c'];
 
-$recentQAFails = mysql_result(
-    mysql_query("SELECT COUNT(*) FROM qa_samples
+$recentQAFails = mysqli_fetch_assoc(
+    mysqli_query($conn, "SELECT COUNT(*) AS c FROM qa_samples
                  WHERE passed = 'no'
-                 AND sample_time >= DATE_SUB(CURDATE(), INTERVAL 30 DAY)"), 0);
+                 AND sample_time >= DATE_SUB(CURDATE(), INTERVAL 30 DAY)"))['c'];
 ?>
 <h2>Dashboard</h2>
 
