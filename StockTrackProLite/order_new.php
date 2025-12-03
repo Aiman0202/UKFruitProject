@@ -71,7 +71,8 @@ $products  = mysqli_query($conn, "SELECT id, name, price, stock FROM products OR
                 <td><?php echo $p['stock']; ?></td>
                 <td><?php echo number_format($p['price'], 2); ?></td>
                 <td>
-                    <input type="number" name="item[<?php echo $p['id']; ?>]" value="0" min="0" style="width:60px">
+                    <input class="input-field" type="number" name="item[<?php echo $p['id']; ?>]" value="0" min="0">
+                    <!--removed style attribute from CSS-->
                 </td>
             </tr>
         <?php endwhile; ?>
