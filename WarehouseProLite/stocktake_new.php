@@ -72,7 +72,7 @@ $prods  = mysqli_query($conn, "SELECT id, sku, name, stock FROM products ORDER B
     <td><?php echo $p['sku']; ?></td>
     <td><?php echo htmlspecialchars($p['name']); ?></td>
     <td><?php echo $p['stock']; ?></td>
-    <td><input type="number" name="count[<?php echo $p['id']; ?>]" style="width:80px"></td>
+    <td><input type="number" name="count[<?php echo $p['id']; ?>]"  class="stock-take-count"></td> <!--remove in-line css-->
 </tr>
 <?php endwhile; ?>
 </tbody>
