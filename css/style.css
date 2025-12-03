@@ -1,0 +1,288 @@
+/*Centralised code Building on WarehousePro styling (more modern) */
+
+.logo svg {
+    vertical-align: middle;
+    margin-bottom: 4px;
+    margin-right: 8px; 
+}
+
+
+
+
+/* ========= WarehouseProLite theme ========= */
+:root {
+
+      /*Primary colours*/
+
+    --primary: #1a3734;           /* primary */
+    --primary-dark: #102220;      /*Darker*/
+    --secondary: #7070ff;         /* Accent color */
+    --background: #f0f0ff;        /* background */
+    --card: #ffffff;           /*Cards*/
+    --border: #b9b5b5;            /* Borders e.g. table */
+
+    --gray: #e2e8f0;
+    --text: #222;
+    --text-light: #fff;
+    --radius: 6px;
+}
+
+
+* {
+    box-sizing: border-box;
+}
+
+
+
+
+/* stocktrackpro as green to differentiate temporarily before changing the colour pallette*/
+/*
+body.stocktrackpro {
+     background: #ebf8f0;
+}
+body.stocktrackpro .topbar {
+    background: #2e8b57;
+}
+/*Darker effect for hovering*/
+/*
+body.stocktrackpro .topbar nav a:hover,
+body.stocktrackpro .topbar nav a.active {
+    background: #256b44;
+}
+*/
+
+body {
+    margin: 0;
+    font-family: Cabin, Arial, Helvetica, sans-serif;
+    background: var(--background);
+    color: var(--text);
+    line-height: 1.4;
+}
+
+
+
+/* Top bar */
+.topbar {
+    background: var(--primary); /*changed*/
+    color: var(--text-light);
+    padding: .8rem 1.2rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.topbar .logo {
+    font-size: 1.25rem;
+    margin: 0;
+    flex: 1 0 auto;
+}
+
+.topbar nav a {
+    color: var(--text-light);  
+    text-decoration: none;
+    margin-left: 1rem;
+    padding: .4rem .6rem;
+    border-radius: var(--radius);
+}
+
+.topbar nav a:hover,
+.topbar nav a.active {
+    background: var(--primary-dark); /*changed*/
+}
+
+.topbar nav a.right {
+    margin-left: auto;
+}
+
+/* Layout wrapper */
+.container {
+    max-width: 960px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+/* Tables */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1.5rem;
+    border: 1px solid var(--border) 
+}
+
+th, td {
+    padding: .6rem .5rem;
+    border-bottom: 1px solid var(--gray);
+    text-align: left;
+}
+
+th {
+    background: var(--gray);
+    font-weight: 600;
+}
+
+tr:nth-child(even) {
+    background: #f9fbfc;
+}
+
+/* Forms */
+label {
+    display: block;
+    margin: .65rem 0 .25rem;
+    font-weight: 600;
+}
+
+input[type=text],
+input[type=password],
+input[type=number],
+select,
+textarea {
+    width: 100%;
+    padding: .45rem;
+    border: 1px solid #ccc;
+    border-radius: var(--radius);
+}
+
+input[type=submit],
+button {
+    background: var(--secondary);  /*changed*/
+    color: var(--text-light);
+    border: none;
+    padding: .5rem 1rem;
+    border-radius: var(--radius);
+    font-weight: 600;
+    cursor: pointer;
+}
+
+input[type=submit]:hover,
+button:hover {
+    background: var(--primary-dark);  /*changed*/
+}
+
+.btn {
+    background: var(--secondary); /*changed*/
+    color: var(--text-light);
+    padding: .4rem .8rem;
+    border-radius: var(--radius);
+    text-decoration: none;
+}
+
+.btn:hover {
+    background: var(--primary-dark);
+}
+
+/*input for each input 60px instead of 100% width*/
+td .input-field{
+    width:70px;
+}
+
+
+
+/* KPI cards */
+.cards {
+    display: flex;
+    gap: .8rem;
+    overflow-x: auto;
+}
+
+.card {
+    background: var(--card);
+    border: 1px solid var(--border); 
+    border-radius: var(--radius);    
+    padding: 1rem 1.2rem;
+    min-width: 150px;
+    text-align: center;
+    box-shadow: 4px 0 3px rgba(0,0,0,0.1); /*Adding shadow to cards*/
+}
+
+.card .big {
+    display: block;
+    font-size: 1.6rem;
+    font-weight: 600;
+    margin-bottom: .15rem;
+}
+
+
+
+
+/* Footer */
+footer {
+    background: var(--gray);
+    text-align: center;
+    padding: 1rem;
+    font-size: .85rem;
+}
+
+
+/*test to see what styling was affecting the login pages*/
+/*
+body.login-page {
+    background-color: red !important;
+}
+
+.login-page {  
+    background-color: red !important;
+}
+*/
+
+
+
+/*The styling for the login cards shown after the user selects either the stocktrackpro / warehousepro login*/
+/* Login styling of index.php */
+
+
+/*body and aligning items*/
+body.login-page {
+   /* background: var(--background); *//*Added */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+/*Actual login cards*/
+.login-card {
+    width: 400px;
+    height: 500px;
+    padding: 2rem 2.4rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background:var(--card); /*Added */
+    /*box-shadow: 0 2px 4px rgba(0,0,0,.08);*/
+    text-align: center;
+    box-shadow: 
+    5px 0 15px rgba(0, 0, 0, 0.08), /* right shadow */
+    0 10px 30px rgba(0, 0, 0, 0.1);  /* Regular shadow */
+}
+
+/*heading*/
+.login-card h1 {
+    font-size: 1.45rem;
+    margin: 0 0 1.2rem;
+    color: var(--text);
+}
+
+/*slogan / paragraph*/
+.login-card p{
+    font-size: 17px;
+    font-weight: 200;
+    color: var(--text);
+}
+/*Label - Username and password*/
+.login-card label {
+    text-align: left;
+}
+/*UK Fruit Logo fit within the*/
+.login-card .logo{
+    width:200px;
+}
+
+/*Factory and Box logo*/
+.login-card svg {
+    margin-top: 5px;
+    margin-right: 8px; 
+}
+
+.login-card password-invalid{
+   color:#a00;
+   margin-bottom:1rem; 
+}
