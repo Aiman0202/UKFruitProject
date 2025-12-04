@@ -28,7 +28,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 /* ---------- Load products for drop-down ---------- */
 $prods = mysqli_query($conn, "SELECT id, sku, name FROM products ORDER BY name");
 
-/* Pre-fill fields if called from stock-take variance link */
 $prefillPid   = isset($_GET['pid'])   ? (int)$_GET['pid']   : '';
 $prefillDelta = isset($_GET['delta']) ? (int)$_GET['delta'] : '';
 ?>

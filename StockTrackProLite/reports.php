@@ -1,5 +1,4 @@
 <?php
-/* reports.php – reporting hub (very legacy visual) */
 include __DIR__ . '/includes/db.php';
 include __DIR__ . '/includes/header.php';
 
@@ -48,23 +47,35 @@ $revenues = array_map(fn($row) => round($row['revenue'], 2), $monthlyData);
 <h3>Monthly Sales (last 12 months)</h3>
 <canvas id="salesChart" height="120"></canvas>
 
-<!-- ⚠ LEGACY/INSECURE CDN – Chart.js v1.0.2 (HTTP, no SRI) -->
-<script src="http://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-var ctx  = document.getElementById('salesChart').getContext('2d');
-var data = {
+const ctx  = document.getElementById('salesChart').getContext('2d');
+
+const data = {
     labels: <?php echo json_encode($labels); ?>,
     datasets: [{
         label: "Revenue £",
-        fillColor   : "#2e8b57",
-        strokeColor : "#256b44",
-        data        : <?php echo json_encode($revenues); ?>
+        data: <?php echo json_encode($revenues); ?>,
+        backgroundColor: "rgba(46,139,87,0.5)",
+        borderColor: "rgba(37,107,68,1)",
+        borderWidth: 2
     }]
 };
-/* Old v1 API: new Chart(ctx).Bar(...) */
-new Chart(ctx).Bar(data, {
-    responsive: true,
-    scaleLabel: "£<%=value%>"
+
+new Chart(ctx, {
+    type: 'bar',
+    data: data,
+    options: {
+        responsive: true,
+        scales: {
+            y: {
+                beginAtZero: true,
+                ticks: {
+                    callback: value => '£' + value
+                }
+            }
+        }
+    }
 });
 </script>
 
