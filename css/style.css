@@ -296,3 +296,42 @@ body.login-page {
     color: #a00;
     margin-bottom: 1rem;
 }
+
+
+
+
+
+
+/*Media queries for tablet*/
+
+
+@media (max-width: 786px) { /* px for most phones - the breakpoint*/
+  .logo-heading-container {
+    flex-direction: column;  /* Stack into a column to save space for a small screen */
+  }
+
+  h1 {
+    font-size: 30px;  /* Smaller heading for phone */
+    text-align: center;
+  }
+
+
+  h2 {
+    font-size: 20px;  /* Smaller sub-heading for phone */
+    text-align: center;
+  }
+
+
+  .logo {
+    width: 150px;  /* Smaller logo */
+  }
+
+  .platform-options {
+    flex-direction: column;
+    margin-left: 45px;
+    margin-bottom: 40px;
+  }
+  
+
+}
+
