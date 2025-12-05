@@ -25,10 +25,6 @@ $invalid = isset($_GET['error']);
     <p>Manage your inventory with ease.</p>
     <p><img src="assets/UKFruit2010.png" width="200" alt="Customer Logo" class="logo"></p>
 
-    <?php if ($invalid): ?>
-        <p class="password-invalid">Invalid username or password</p> <!--had in-line css-->
-    <?php endif; ?>
-
     <form action="login.php" method="post">
         <label>Username
             <input type="text" name="username" required>

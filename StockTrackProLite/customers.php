@@ -18,11 +18,20 @@ if (isset($_GET['msg']) && $_GET['msg'] === 'deleted') {
 ?>
 <h2>Customers</h2>
 
-<?php echo $flash; ?>
+<div style="display:flex; align-items:center; gap: 500px;0px; margin-bottom:12px;">
 
-<p>
-    <a href="customer_add.php" class="btn">+ Add Customer</a>
-</p>
+<a href="customer_add.php" class="btn">+ Add Customer</a>
+
+<input 
+    type="text" 
+    id="searchName" 
+    placeholder="Search customer name..." 
+    style="padding:6px; width:250px; margin-bottom:12px;"
+>
+
+</div>
+
+<?php echo $flash; ?>
 
 <table>
     <thead>
@@ -37,7 +46,7 @@ if (isset($_GET['msg']) && $_GET['msg'] === 'deleted') {
     <tbody>
 <?php if (mysqli_num_rows($result) > 0): ?>
     <?php while ($row = mysqli_fetch_assoc($result)): ?>
-        <tr>
+        <tr data-customer="<?php echo strtolower($row['name'] ?? ''); ?>">
             <td><?php echo htmlspecialchars($row['name']); ?></td>
             <td><?php echo htmlspecialchars($row['phone']); ?></td>
             <td><?php echo htmlspecialchars($row['email']); ?></td>

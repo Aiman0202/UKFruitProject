@@ -12,7 +12,18 @@ $orders = mysqli_fetch_all(mysqli_query($conn, "SELECT o.id, o.order_date, o.tot
 ?>
 <h2>Orders</h2>
 
-<p><a href="order_new.php" class="btn">+ New Order</a></p>
+<div style="display:flex; align-items:center; gap: 550px;0px; margin-bottom:12px;">
+
+<a href="order_new.php" class="btn">+ New Order</a>
+
+<input 
+    type="text" 
+    id="searchCustomer" 
+    placeholder="Search customer name..." 
+    style="padding:6px; width:250px; margin-bottom:12px;"
+>
+
+</div>
 
 <table>
     <thead>
@@ -29,7 +40,7 @@ $orders = mysqli_fetch_all(mysqli_query($conn, "SELECT o.id, o.order_date, o.tot
         <tr><td colspan="5">No orders yet.</td></tr>
     <?php else: ?>
         <?php foreach ($orders as $row): ?>
-            <tr>
+            <tr data-customer="<?php echo strtolower($row['customer'] ?? ''); ?>">
                 <td><?php echo $row['id']; ?></td>
                 <td><?php echo date('Y-m-d H:i', strtotime($row['order_date'])); ?></td>
                 <td><?php echo htmlspecialchars($row['customer'] ?? '-'); ?></td>
@@ -40,3 +51,20 @@ $orders = mysqli_fetch_all(mysqli_query($conn, "SELECT o.id, o.order_date, o.tot
     <?php endif; ?>
     </tbody>
 </table>
+
+<script>
+document.getElementById("searchCustomer").addEventListener("keyup", function() {
+    const query = this.value.toLowerCase();
+    const rows = document.querySelectorAll("tbody tr");
+
+    rows.forEach(row => {
+        const customer = row.getAttribute("data-customer");
+
+        if (customer.includes(query)) {
+            row.style.display = "";
+        } else {
+            row.style.display = "none";
+        }
+    });
+});
+</script>
