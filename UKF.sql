@@ -37,11 +37,12 @@ CREATE TABLE `adjustments` (
   `reason` enum('damage','writeoff','correction','qa_sample') NOT NULL,
   `approved_by` int(11) DEFAULT NULL,
   `created_at` datetime NOT NULL,
+  `is_active` TINYINT(1) NOT NULL DEFAULT 1,
   PRIMARY KEY (`id`),
   KEY `product_id` (`product_id`),
   KEY `approved_by` (`approved_by`),
   CONSTRAINT `adjustments_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`),
-  CONSTRAINT `adjustments_ibfk_2` FOREIGN KEY (`approved_by`) REFERENCES `wh_users` (`id`)
+  CONSTRAINT `adjustments_ibfk_2` FOREIGN KEY (`approved_by`) REFERENCES `users` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -51,7 +52,7 @@ CREATE TABLE `adjustments` (
 
 LOCK TABLES `adjustments` WRITE;
 /*!40000 ALTER TABLE `adjustments` DISABLE KEYS */;
-INSERT INTO `adjustments` VALUES (16,2,6,'damage',7,'2025-09-03 23:21:44'),(17,11,2,'correction',7,'2025-09-03 23:21:44'),(18,9,-10,'damage',7,'2025-09-03 23:21:44'),(19,11,1,'correction',7,'2025-09-03 23:21:44'),(20,15,7,'writeoff',7,'2025-09-03 23:21:44'),(26,9,-10,'correction',NULL,'2025-09-09 13:05:27'),(27,11,-5,'correction',NULL,'2025-09-09 13:05:33'),(28,12,-1,'qa_sample',NULL,'2025-09-09 13:36:00'),(29,9,-10,'correction',NULL,'2025-09-09 13:36:57');
+INSERT INTO `adjustments` VALUES (16,2,6,'damage',7,'2025-09-03 23:21:44',1),(17,11,2,'correction',7,'2025-09-03 23:21:44',1),(18,9,-10,'damage',7,'2025-09-03 23:21:44',1),(19,11,1,'correction',7,'2025-09-03 23:21:44',1),(20,15,7,'writeoff',7,'2025-09-03 23:21:44',1),(26,9,-10,'correction',NULL,'2025-09-09 13:05:27',1),(27,11,-5,'correction',NULL,'2025-09-09 13:05:33',1),(28,12,-1,'qa_sample',NULL,'2025-09-09 13:36:00',1),(29,9,-10,'correction',NULL,'2025-09-09 13:36:57',1);
 /*!40000 ALTER TABLE `adjustments` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -68,11 +69,10 @@ CREATE TABLE `customers` (
   `phone` varchar(30) DEFAULT NULL,
   `email` varchar(100) DEFAULT NULL,
   `address` text DEFAULT NULL,
+  `is_active` TINYINT(1) NOT NULL DEFAULT 1,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
-ALTER TABLE customers ADD COLUMN is_active TINYINT(1) NOT NULL DEFAULT 1;
 
 --
 -- Dumping data for table `customers`
@@ -80,7 +80,7 @@ ALTER TABLE customers ADD COLUMN is_active TINYINT(1) NOT NULL DEFAULT 1;
 
 LOCK TABLES `customers` WRITE;
 /*!40000 ALTER TABLE `customers` DISABLE KEYS */;
-INSERT INTO `customers` (`id`, `name`, `phone`, `email`, `address`) VALUES (1,'Acme Grocers Ltd','020 7345 1200','purchasing@acme-grocers.co.uk','14–18 Market Road, London, N1 6LF'),(2,'Sunshine Corner Shop','01733 501 882','sunshinecorner@gmail.com','31 Station Street, Peterborough, PE1 1QF'),(3,'Fruit & Fibre Wholesalers','0116 555 2929','orders@fruitfibrewholesale.com','Unit 7, Meridian Park, Leicester, LE19 1WY'),(4,'Campus Eats Café','01223 879 411','stock@campuseats.cam.ac.uk','Trinity Lane, Cambridge, CB2 1TQ'),(5,'Healthy Harvest Juice Bar','01603 642 007','buy@healthyharvestjbar.uk','12 Norwich Lane, Norwich, NR2 4SQ'),(6,'Big Bites Catering','01296 443 300','kitchen@bigbitescat.co.uk','6 Crown Way, Aylesbury, HP19 8BP'),(7,'Best Western Hotel—Kitchen','0191 208 7700','bw-kitchen@bw-hotel.com','Gallowgate, Newcastle upon Tyne, NE4 5SD'),(8,'Little Learners Nursery','0131 447 3322','nurseryoffice@littlelearners.scot','45 Mayfield Rd, Edinburgh, EH9 3AA'),(9,'Pick & Mix Farm Shop','01452 841 615','hello@pickmixfarm.co.uk','High Street, Painswick, GL6 6XX'),(10,'Rainbow Events Co.','0207 404 4405','procurement@rainbowevents.uk','5th Floor, 122 Bishopsgate, London, EC2M 4BP');
+INSERT INTO `customers` VALUES (1,'Acme Grocers Ltd','020 7345 1200','purchasing@acme-grocers.co.uk','14–18 Market Road, London, N1 6LF',1),(2,'Sunshine Corner Shop','01733 501 882','sunshinecorner@gmail.com','31 Station Street, Peterborough, PE1 1QF',1),(3,'Fruit & Fibre Wholesalers','0116 555 2929','orders@fruitfibrewholesale.com','Unit 7, Meridian Park, Leicester, LE19 1WY',1),(4,'Campus Eats Café','01223 879 411','stock@campuseats.cam.ac.uk','Trinity Lane, Cambridge, CB2 1TQ',1),(5,'Healthy Harvest Juice Bar','01603 642 007','buy@healthyharvestjbar.uk','12 Norwich Lane, Norwich, NR2 4SQ',1),(6,'Big Bites Catering','01296 443 300','kitchen@bigbitescat.co.uk','6 Crown Way, Aylesbury, HP19 8BP',1),(7,'Best Western Hotel—Kitchen','0191 208 7700','bw-kitchen@bw-hotel.com','Gallowgate, Newcastle upon Tyne, NE4 5SD',1),(8,'Little Learners Nursery','0131 447 3322','nurseryoffice@littlelearners.scot','45 Mayfield Rd, Edinburgh, EH9 3AA',1),(9,'Pick & Mix Farm Shop','01452 841 615','hello@pickmixfarm.co.uk','High Street, Painswick, GL6 6XX',1),(10,'Rainbow Events Co.','0207 404 4405','procurement@rainbowevents.uk','5th Floor, 122 Bishopsgate, London, EC2M 4BP',1);
 /*!40000 ALTER TABLE `customers` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -187,13 +187,18 @@ CREATE TABLE `products` (
   `category_id` int(11) DEFAULT NULL,
   `price` decimal(10,2) NOT NULL,
   `stock` int(11) NOT NULL DEFAULT 0,
+  `is_active` TINYINT(1) NOT NULL DEFAULT 1,
+  `country` VARCHAR(50) NOT NULL,
+  `class` VARCHAR(10) NOT NULL,
+  `pack_uom` VARCHAR(10) NOT NULL,
+  `default_pack_weight` DECIMAL(7,3) DEFAULT NULL,
+  `best_before_days` INT(4) NOT NULL,
+  `lot_prefix` VARCHAR(10) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `category_id` (`category_id`),
   CONSTRAINT `products_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
-ALTER TABLE products ADD COLUMN is_active TINYINT(1) NOT NULL DEFAULT 1;
 
 --
 -- Dumping data for table `products`
@@ -201,8 +206,54 @@ ALTER TABLE products ADD COLUMN is_active TINYINT(1) NOT NULL DEFAULT 1;
 
 LOCK TABLES `products` WRITE;
 /*!40000 ALTER TABLE `products` DISABLE KEYS */;
-INSERT INTO `products` (`id`,`sku`,`name`,`category_id`,`price`,`stock`) VALUES (1,'LF-APL-001','Apple – Braeburn (loose)',1,0.30,450),(2,'LF-APL-002','Apple – Granny Smith (loose)',1,0.32,450),(3,'LF-ORN-003','Orange – Navel (loose)',1,0.35,300),(4,'LF-PER-004','Pear – Conference (loose)',1,0.28,270),(5,'LF-BAN-005','Banana (loose, per item)',1,0.22,580),(6,'LF-LMN-006','Lemon (loose)',1,0.20,250),(7,'LF-LME-007','Lime (loose)',1,0.18,240),(8,'LF-PCH-008','Peach (loose, seasonal)',1,0.40,170),(9,'PF-APL-101','Apples – Braeburn Bag (6 pack)',2,1.40,110),(10,'PF-APL-102','Apples – Granny Smith Bag (6 pack)',2,1.45,100),(11,'PF-BAN-103','Bananas – Family Bag (8-10)',2,1.60,90),(12,'PF-MDT-104','Mandarins – Net (1 kg)',2,1.95,75),(13,'PF-GRP-105','Grapes – Red Seedless Punnet (500 g)',2,2.20,60),(14,'PF-GRP-106','Grapes – Green Seedless Punnet (500 g)',2,2.15,65),(15,'PF-BRY-107','Strawberries Punnet (400 g)',2,2.50,40),(16,'PF-BRY-108','Blueberries Punnet (250 g)',2,2.30,35),(18,'PF-PIN-109','Pineapple Chunks (200g)',2,1.99,0);
+INSERT INTO `products` (`id`,`sku`,`name`,`category_id`,`price`,`stock`,`is_active`,`country`,`class`,`pack_uom`,`default_pack_weight`,`best_before_days`,`lot_prefix`) VALUES 
+(1,'LF-APL-001','Apple – Braeburn (loose)',1,0.30,450,1,'UK','I','each',NULL,8,'AP'),
+(2,'LF-APL-002','Apple – Granny Smith (loose)',1,0.32,450,1,'UK','I','each',NULL,7,'AP'),
+(3,'LF-BAN-005','Banana (loose, per item)',1,0.22,580,1,'EC','I','each',NULL,5,'BN'),
+(4,'LF-LME-007','Lime (loose)',1,0.18,240,1,'BR','I','each',NULL,14,'LM'),
+(5,'LF-LMN-006','Lemon (loose)',1,0.20,250,1,'ES','I','each',NULL,14,'LM'),
+(6,'LF-ORN-003','Orange – Navel (loose)',1,0.35,300,1,'ES','I','each',NULL,10,'OR'),
+(7,'LF-PCH-008','Peach (loose, seasonal)',1,0.40,170,1,'ES','I','each',NULL,5,'PC'),
+(8,'LF-PER-004','Pear – Conference (loose)',1,0.28,270,1,'NL','I','each',NULL,7,'PE'),
+(9,'PF-APL-101','Apples – Braeburn Bag (6 pack)',2,1.40,110,1,'UK','I','g',900,8,'AP'),
+(10,'PF-APL-102','Apples – Granny Smith Bag (6 pack)',3,1.45,100,1,'UK','I','each',NULL,7,'AP'),
+(11,'PF-BAN-001','Bananas (pack of 6)',2,1.60,90,1,'Jamaica','III','g',850,15,'BA'),
+(12,'PF-BAN-103','Bananas – Family Bag (8-10)',3,1.60,90,1,'EC','I','each',NULL,5,'BN'),
+(13,'PF-BLU-109','Blueberries – Sunshine Blue Punnet (300g)',2,2.30,35,1,'South Africa','II','g',300,10,'BL'),
+(14,'PF-BRY-107','Strawberries Punnet (400 g)',3,2.50,40,1,'UK','I','g',400,3,'ST'),
+(15,'PF-BRY-108','Blueberries Punnet (250 g)',3,2.30,35,1,'UK','I','g',250,5,'BB'),
+(16,'PF-GRP-105','Grapes – Red Seedless Punnet (500 g)',3,2.20,60,1,'ES','I','g',500,7,'GR'),
+(17,'PF-GRP-106','Grapes – Green Seedless Punnet (500g)',2,2.15,65,1,'Spain','II','g',500,14,'GR'),
+(18,'PF-MDT-104','Mandarins – Net (1 kg)',3,1.95,75,1,'ES','I','g',1000,10,'MD'),
+(19,'PF-PIN-109','Pineapple Chunks (200 g)',3,1.99,0,1,'CR','I','g',200,5,'PN');
 /*!40000 ALTER TABLE `products` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `categories`
+--
+
+DROP TABLE IF EXISTS `categories`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8mb4 */;
+CREATE TABLE `categories` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) NOT NULL,
+  `description` text DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `categories`
+--
+
+LOCK TABLES `categories` WRITE;
+/*!40000 ALTER TABLE `categories` DISABLE KEYS */;
+INSERT INTO `categories` VALUES (1,'Loose Fruit','Individual fresh fruits sold by weight of each'),
+(2,'Pre-packaged Fruit','Fruit pre-packed in net, punnets or tubs'),
+(3,'Packaged Fruit','Fruit packed in bags or punnets');
+/*!40000 ALTER TABLE `categories` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -221,11 +272,12 @@ CREATE TABLE `qa_samples` (
   `passed` enum('yes','no','pending') DEFAULT 'pending',
   `tech_id` int(11) DEFAULT NULL,
   `note` text DEFAULT NULL,
+  `is_active` TINYINT(1) NOT NULL DEFAULT 1,
   PRIMARY KEY (`id`),
   KEY `product_id` (`product_id`),
   KEY `tech_id` (`tech_id`),
   CONSTRAINT `qa_samples_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`),
-  CONSTRAINT `qa_samples_ibfk_2` FOREIGN KEY (`tech_id`) REFERENCES `wh_users` (`id`)
+  CONSTRAINT `qa_samples_ibfk_2` FOREIGN KEY (`tech_id`) REFERENCES `users` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
   /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -235,7 +287,7 @@ CREATE TABLE `qa_samples` (
 
 LOCK TABLES `qa_samples` WRITE;
 /*!40000 ALTER TABLE `qa_samples` DISABLE KEYS */;
-INSERT INTO `qa_samples` VALUES (9,11,'2025-08-28 15:00:00',10.72,4.9,'no',9,''),(10,11,'2025-08-02 01:00:00',13.39,4.1,'no',9,''),(11,14,'2025-08-03 15:00:00',12.32,4.7,'yes',9,''),(12,5,'2025-08-13 00:00:00',10.96,2.5,'no',9,''),(13,15,'2025-08-07 19:00:00',8.53,5.0,'no',9,''),(14,8,'2025-07-31 14:00:00',12.13,4.1,'no',9,''),(15,11,'2025-07-04 15:00:00',11.53,3.2,'no',9,''),(16,12,'2025-07-26 14:00:00',13.21,3.8,'no',9,''),(19,7,'2025-09-09 13:38:37',6.00,18.0,'no',NULL,'Low sugars');
+INSERT INTO `qa_samples` VALUES (9,11,'2025-08-28 15:00:00',10.72,4.9,'no',9,'',1),(10,11,'2025-08-02 01:00:00',13.39,4.1,'no',9,'',1),(11,14,'2025-08-03 15:00:00',12.32,4.7,'yes',9,'',1),(12,5,'2025-08-13 00:00:00',10.96,2.5,'no',9,'',1),(13,15,'2025-08-07 19:00:00',8.53,5.0,'no',9,'',1),(14,8,'2025-07-31 14:00:00',12.13,4.1,'no',9,'',1),(15,11,'2025-07-04 15:00:00',11.53,3.2,'no',9,'',1),(16,12,'2025-07-26 14:00:00',13.21,3.8,'no',9,'',1),(19,7,'2025-09-09 13:38:37',6.00,18.0,'no',NULL,'Low sugars',1);
 /*!40000 ALTER TABLE `qa_samples` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -284,7 +336,7 @@ CREATE TABLE `stock_takes` (
   `reconciled` enum('no','yes') NOT NULL DEFAULT 'no',
   PRIMARY KEY (`id`),
   KEY `clerk_id` (`clerk_id`),
-  CONSTRAINT `stock_takes_ibfk_1` FOREIGN KEY (`clerk_id`) REFERENCES `wh_users` (`id`)
+  CONSTRAINT `stock_takes_ibfk_1` FOREIGN KEY (`clerk_id`) REFERENCES `users` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -307,9 +359,12 @@ DROP TABLE IF EXISTS `users`;
 /*!40101 SET character_set_client = utf8mb4 */;
 CREATE TABLE `users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) NOT NULL,
   `username` varchar(50) NOT NULL,
   `password` char(32) NOT NULL,
-  `role` enum('admin','clerk') NOT NULL DEFAULT 'clerk',
+  `role` varchar(50) NOT NULL,
+  `area_access` TINYINT(1) NOT NULL,
+  `must_reset_password` enum('yes', 'no') NOT NULL DEFAULT 'yes',
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -321,7 +376,17 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'admin','21232f297a57a5a743894a0e4a801fc3','Admin'); /*, (2, 'jl_1234', '', 'Lead Office Administrator'), (3, 'wh_manager', '', 'Warehouse Manager'), (4, 'qa_lead', '', 'QA Lead'), (5, 'qa_tech', '', 'QA Tech'), (6, 'wh_clerk', '', 'Warehouse Operative'), (7, 'wh_clerk', '', 'Warehouse Operative'), (8, 'BWilson', '', 'Office Assistant'), (9, 'gf84', '', 'Client Relations Officer'), (10, 'ks_1998', '', 'HR'), (11, 'immy_0092', '', 'Finance');*/
+INSERT INTO `users` VALUES (1,'Charlie Dodds','admin','21232f297a57a5a743894a0e4a801fc3','Company Director','0','yes'),
+(2,'Mohammed Imtiaz','immy_0092','188a0ff1e830261d0253b185a1c0f94f','Finance','1','yes'),
+(3,'Kaz Smedry','ks_1998','188a0ff1e830261d0253b185a1c0f94f','HR','1','yes'),
+(4,'Garry Falsom','gf84','188a0ff1e830261d0253b185a1c0f94f','Client Relations Officer','1','yes'),
+(5,'Becky Wilson','BWilson','188a0ff1e830261d0253b185a1c0f94f','Office Assistant','1','yes'),
+(6,'Julie Learner','jl_1234','188a0ff1e830261d0253b185a1c0f94f','Lead Office Administrator','1','yes'),
+(7,'Piotr Broniewski','wh_clerk_pb','188a0ff1e830261d0253b185a1c0f94f','Warehouse Operative','2','yes'),
+(8,'James Bellows','wh_clerk_jb','188a0ff1e830261d0253b185a1c0f94f','Warehouse Operative','2','yes'),
+(9,'Fatima Ali','qa_tech','188a0ff1e830261d0253b185a1c0f94f','QA','2','yes'),
+(10,'Sadie Childs','qa_lead','188a0ff1e830261d0253b185a1c0f94f','QA Lead','2','yes'),
+(11,'Ben Flowers','wh_manager','188a0ff1e830261d0253b185a1c0f94f','Warehouse Manager','2','yes');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
