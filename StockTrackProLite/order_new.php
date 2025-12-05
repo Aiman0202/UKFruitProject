@@ -81,7 +81,7 @@ $products  = mysqli_query($conn, "SELECT id, name, price, stock FROM products OR
 
     <p>
         <input type="submit" value="Save Order">
-        <a href="orders.php">Cancel</a>
+        <a href="orders.php" class="btn-secondary">Cancel</a>  <!--secondary 'cancel button' styling-->
     </p>
 </form>
 
