@@ -95,7 +95,7 @@ $prods = mysqli_query($conn, "SELECT id, sku, name FROM products ORDER BY name")
 
     <p>
         <input type="submit" value="Save Changes">
-        <a href="deliveries.php">Cancel</a>
+        <a href="deliveries.php" class="btn-secondary">Cancel</a>  <!--secondary 'cancel button' styling-->
     </p>
 </form>
 

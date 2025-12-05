@@ -64,7 +64,7 @@ $prefillDelta = isset($_GET['delta']) ? (int)$_GET['delta'] : '';
 
     <p>
         <input type="submit" value="Save">
-        <a href="adjustments.php">Cancel</a>
+        <a href="adjustments.php" class="btn-secondary">Cancel</a>  <!--secondary 'cancel button' styling-->
     </p>
 </form>
 

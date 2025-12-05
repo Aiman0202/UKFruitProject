@@ -59,8 +59,8 @@ $cats = mysqli_query($conn, "SELECT id, name FROM categories ORDER BY name");
     </label>
 
     <p>
-        <input type="submit" value="Add Product">
-        <a href="products.php">Cancel</a>
+        <input type="submit" value="Add Product"> 
+        <a href="products.php" class="btn-secondary">Cancel</a>  <!--secondary 'cancel button' styling-->
     </p>
 </form>
 

@@ -72,7 +72,7 @@ while ($r = mysqli_fetch_assoc($lines)):
 </form>
 
 <p>
-  <a href="stocktake_new.php" class="btn">← New Stock-Take</a> 
-  <a href="dashboard.php" class="btn">Dashboard</a>
+  <a href="stocktake_new.php" class="btn">← New Stock-Take</a> <!--button-->
+  <a href="dashboard.php" class="btn">Dashboard</a><!--button-->
 </p>
 <?php include 'includes/footer.php'; ?>
