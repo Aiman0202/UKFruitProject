@@ -1,5 +1,4 @@
 <?php
-/* reports.php – simple legacy warehouse reports */
 include 'includes/db.php';
 include 'includes/header.php';
 
