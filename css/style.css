@@ -21,6 +21,8 @@
     --card: #ffffff;           /*Cards*/
     --border: #b9b5b5;            /* Borders e.g. table */
 
+    --btn-secondary: #325730;      
+
     --gray: #e2e8f0;
     --text: #222;
     --text-light: #fff;
@@ -170,8 +172,21 @@ button:hover {
     text-decoration: none;
 }
 
-.btn:hover {
-    background: var(--primary-dark);
+/*styling secondary buttons*/
+.btn-secondary{
+    background: var(--btn-secondary);
+    color: var(--text-light);
+    padding: .4rem .8rem;
+    border-radius: var(--radius);
+    text-decoration: none;
+}
+
+
+
+/* Same hover for both */
+.btn:hover,
+.btn-secondary:hover {
+    background: var(--primary-dark); 
 }
 
 /*input for each input 60px instead of 100% width*/

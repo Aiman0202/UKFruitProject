@@ -104,6 +104,6 @@ $qaFail = mysqli_query($conn, "SELECT q.id,
   </tbody>
 </table>
 
-<p><a href="dashboard.php">← Back to Dashboard</a></p>
+<p><a href="dashboard.php"  class="btn">← Back to Dashboard</a></p> <!--turned link to button-->
 
 <?php include 'includes/footer.php'; ?>

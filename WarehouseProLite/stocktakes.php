@@ -49,7 +49,7 @@ if (!$takes) {
 </table>
 
 <p>
-  <a href="stocktake_new.php">Start New Stock-Take</a> |
-  <a href="dashboard.php">Dashboard</a>
+  <a href="stocktake_new.php"  class="btn">Start New Stock-Take</a> <!--turned link to button-->
+  <a href="dashboard.php"  class="btn">Dashboard</a> <!--turned link to button-->
 </p>
 <?php include 'includes/footer.php'; ?>
