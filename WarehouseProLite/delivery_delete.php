@@ -1,4 +1,5 @@
 <?php
+session_start();
 /* delivery_delete.php – remove a goods-in record + reverse stock */
 include 'includes/db.php';
 include 'includes/auth.php';   // ensure user is logged in

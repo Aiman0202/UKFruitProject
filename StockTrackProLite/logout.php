@@ -8,4 +8,5 @@ session_destroy();
 
 /* Redirect back to the login page */
 header('Location: access.html');
+header('Location: http://localhost/access.html');
 exit();

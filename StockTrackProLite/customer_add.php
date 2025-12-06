@@ -40,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     <p>
         <input type="submit" value="Add Customer">
-        <a href="customers.php">Cancel</a>
+        <a href="customers.php" class="btn-secondary">Cancel</a> <!--secondary 'cancel button' styling-->
     </p>
 </form>
 

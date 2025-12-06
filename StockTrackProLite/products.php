@@ -2,7 +2,6 @@
 include __DIR__ . '/includes/db.php';
 include __DIR__ . '/includes/header.php';
 
-/* join categories so we can show the name */
 $res = mysqli_query($conn, "SELECT p.id, p.sku, p.name, p.price, p.stock,
            IFNULL(c.name,'-') AS category
     FROM products p

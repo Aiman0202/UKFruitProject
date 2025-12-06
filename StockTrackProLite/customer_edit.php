@@ -54,7 +54,7 @@ if (!$row = mysqli_fetch_assoc($res)) {
 
     <p>
         <input type="submit" value="Save">
-        <a href="customers.php">Cancel</a>
+        <a href="customers.php"  class="btn-secondary">Cancel</a> <!--secondary 'cancel button' styling-->
     </p>
 </form>
 

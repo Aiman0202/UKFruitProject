@@ -49,8 +49,8 @@ if (!isset($_GET['take'])):
 <form method="post">
     <p>This will create a new stock-take session for ALL products.</p>
     <input type="hidden" name="create_take" value="1">
-    <input type="submit" value="Start Stock-Take">
-    <a href="dashboard.php">Cancel</a>
+    <input type="submit" value="Start Stock-Take"> 
+    <a href="dashboard.php" class="btn-secondary">Cancel</a> <!--secondary 'cancel button' styling-->
 </form>
 <?php
 include 'includes/footer.php';
@@ -72,7 +72,7 @@ $prods  = mysqli_query($conn, "SELECT id, sku, name, stock FROM products ORDER B
     <td><?php echo $p['sku']; ?></td>
     <td><?php echo htmlspecialchars($p['name']); ?></td>
     <td><?php echo $p['stock']; ?></td>
-    <td><input type="number" name="count[<?php echo $p['id']; ?>]" style="width:80px"></td>
+    <td><input type="number" name="count[<?php echo $p['id']; ?>]"  class="stock-take-count"></td> <!--remove in-line css-->
 </tr>
 <?php endwhile; ?>
 </tbody>
@@ -80,7 +80,7 @@ $prods  = mysqli_query($conn, "SELECT id, sku, name, stock FROM products ORDER B
 <p>
     <input type="hidden" name="save_lines" value="1">
     <input type="submit" value="Save Counts">
-    <a href="stocktake_new.php">Cancel</a>
+    <a href="stocktake_new.php" class="btn-secondary">Cancel</a> <!--secondary 'cancel button' styling-->
 </p>
 </form>
 <?php include 'includes/footer.php'; ?>

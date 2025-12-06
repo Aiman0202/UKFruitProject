@@ -27,14 +27,15 @@ $recentQAFails = mysqli_fetch_assoc(
   <div class="card"><span class="big"><?php echo $recentAdjust; ?></span>Adj&nbsp;(30d)</div>
   <div class="card"><span class="big"><?php echo $recentQAFails; ?></span>QA&nbsp;Fails&nbsp;(30d)</div>
 </div>
+<br>
 
 <h3>Quick Links</h3>
-<ul>
-  <li><a href="deliveries.php">Record Deliveries</a></li>
-  <li><a href="stocktake_new.php">Start Stock-Take</a></li>
-  <li><a href="adjustments.php">Add Adjustment</a></li>
-  <li><a href="qa_samples.php">Log QA Sample</a></li>
-  <li><a href="reports.php">Warehouse Reports</a></li>
-</ul>
+<div class="quick-links">
+  <a href="deliveries.php" class="btn">Record Deliveries</a>
+  <a href="stocktake_new.php" class="btn">Start Stock-Take</a>
+  <a href="adjustments.php" class="btn">Add Adjustment</a>
+  <a href="qa_samples.php" class="btn">Log QA Sample</a>
+  <a href="reports.php" class="btn">Warehouse Reports</a>
+</div>
 
 <?php include 'includes/footer.php'; ?>

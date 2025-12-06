@@ -8,16 +8,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $p = md5($_POST['password']);
 
     $res = mysqli_query($conn, "SELECT id, username, role
-        FROM wh_users
+        FROM users
         WHERE username='$u' AND password='$p'
         LIMIT 1
     ");
 
     if ($row = mysqli_fetch_assoc($res)) {
 
-        $_SESSION['wh_user_id'] = $row['id'];
-        $_SESSION['wh_user']    = $row['username'];
-        $_SESSION['wh_role']    = $row['role'];
+        $_SESSION['user_id'] = $row['id'];
+        $_SESSION['user']    = $row['username'];
+        $_SESSION['role']    = $row['role'];
 
         header('Location: dashboard.php');
         exit();

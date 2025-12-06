@@ -44,6 +44,6 @@ $lines = mysqli_query($conn,
     </tbody>
 </table>
 
-<p><a href="orders.php">← Back to Orders</a></p>
+<p><a href="orders.php" class="btn">← Back to Orders</a></p> <!--turned link to button-->
 
 <?php include __DIR__ . '/includes/footer.php'; ?>

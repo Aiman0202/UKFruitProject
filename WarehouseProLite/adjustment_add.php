@@ -28,7 +28,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 /* ---------- Load products for drop-down ---------- */
 $prods = mysqli_query($conn, "SELECT id, sku, name FROM products ORDER BY name");
 
-/* Pre-fill fields if called from stock-take variance link */
 $prefillPid   = isset($_GET['pid'])   ? (int)$_GET['pid']   : '';
 $prefillDelta = isset($_GET['delta']) ? (int)$_GET['delta'] : '';
 ?>
@@ -64,7 +63,7 @@ $prefillDelta = isset($_GET['delta']) ? (int)$_GET['delta'] : '';
 
     <p>
         <input type="submit" value="Save">
-        <a href="adjustments.php">Cancel</a>
+        <a href="adjustments.php" class="btn-secondary">Cancel</a>  <!--secondary 'cancel button' styling-->
     </p>
 </form>
 
