@@ -22,13 +22,6 @@ if (isset($_GET['msg']) && $_GET['msg'] === 'deleted') {
 
 <a href="customer_add.php" class="btn">+ Add Customer</a>
 
-<input 
-    type="text" 
-    id="searchName" 
-    placeholder="Search customer name..." 
-    style="padding:6px; width:250px; margin-bottom:12px;"
->
-
 </div>
 
 <?php echo $flash; ?>
