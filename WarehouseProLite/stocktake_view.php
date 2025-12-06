@@ -12,17 +12,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['finalise'])) {
 }
 
 /* ---------- Pull variance lines ---------- */
-$lines = mysqli_query($conn, "SELECT p.id   AS pid,
-           p.sku,
-           p.name,
-           p.stock              AS theoretical,
-           l.counted_qty,
-           (l.counted_qty - p.stock) AS variance
+$lines = mysqli_query($conn, "
+    SELECT 
+        p.id AS pid,
+        p.sku,
+        p.name,
+        p.stock AS theoretical,
+        l.counted_qty,
+        (l.counted_qty - p.stock) AS variance
     FROM stock_take_lines l
     JOIN products p ON p.id = l.product_id
+    LEFT JOIN (
+        SELECT a.product_id, SUM(a.qty_delta) AS total_adjustment
+        FROM adjustments a
+        JOIN stock_takes t ON a.created_at >= t.taken_at
+        WHERE t.id = $takeId
+        GROUP BY a.product_id
+    ) AS adj ON adj.product_id = p.id
     WHERE l.stock_take_id = $takeId
     ORDER BY p.name
 ");
+
 ?>
 <h2>Stock-Take #<?php echo $takeId; ?> – Variance</h2>
 
@@ -46,7 +56,7 @@ while ($r = mysqli_fetch_assoc($lines)):
     <td><?php echo $r['variance']; ?></td>
     <td>
       <?php if ($r['variance'] != 0): ?>
-        <a href="adjustment_add.php?pid=<?php echo $r['pid']; ?>&delta=<?php echo $r['variance']; ?>">
+        <a href="adjustment_add.php?pid=<?php echo $r['pid']; ?>&delta=<?php echo $r['variance']; ?>&take=<?php echo $takeId; ?>">
           Post Adjustment
         </a>
       <?php else: ?>

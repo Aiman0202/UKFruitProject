@@ -6,6 +6,8 @@
 include 'includes/db.php';
 include 'includes/header.php';
 
+$takeId = isset($_GET['take']) ? (int)$_GET['take'] : 0;
+
 /* --------- Save on POST --------- */
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $pid   = (int)$_POST['product_id'];
@@ -20,9 +22,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         VALUES ($pid, $delta, '$reason', $uid, NOW())
     ");
 
+    mysqli_query($conn,
+    "UPDATE products 
+     SET stock = stock + $delta 
+     WHERE id = $pid"
+);
 
-    header('Location: adjustments.php?msg=added');
-    exit();
+
+$takeId = isset($_POST['take_id']) ? (int)$_POST['take_id'] : 0;
+
+if ($takeId > 0) {
+    header("Location: stocktake_view.php?id=$takeId&msg=adjustment_added");
+} else {
+    header("Location: adjustments.php?msg=added");
+}
+exit();
 }
 
 /* ---------- Load products for drop-down ---------- */
@@ -34,6 +48,8 @@ $prefillDelta = isset($_GET['delta']) ? (int)$_GET['delta'] : '';
 <h2>Add Adjustment</h2>
 
 <form action="adjustment_add.php" method="post">
+
+    <input type="hidden" name="take_id" value="<?php echo $takeId; ?>">
     <label>Product
         <select name="product_id" required>
             <option value="">-- select --</option>
