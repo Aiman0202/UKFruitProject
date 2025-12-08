@@ -20,12 +20,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $_SESSION['user']    = $row['username'];
         $_SESSION['role']    = $row['role'];
 
+        if ($row['must_reset_password'] === 'yes') {
+            header('Location: force_password_change.php');
+            exit();
+        }
+
         header('Location: dashboard.php');
         exit();
     }
 }
 
-/* failed login — back to index with error flag */
 header('Location: index.php?error=1');
 exit();
 ?>
