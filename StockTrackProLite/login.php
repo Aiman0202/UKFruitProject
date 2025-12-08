@@ -1,5 +1,4 @@
 <?php
-// login.php  (place in StockTrackProLite root)
 session_start();
 include 'includes/db.php';
 
