@@ -386,8 +386,8 @@ INSERT INTO `users` VALUES (1,'Charlie Dodds','admin','21232f297a57a5a743894a0e4
 (8,'James Bellows','wh_clerk_jb','188a0ff1e830261d0253b185a1c0f94f','Warehouse Operative','2','yes'),
 (9,'Fatima Ali','qa_tech','188a0ff1e830261d0253b185a1c0f94f','QA','2','yes'),
 (10,'Sadie Childs','qa_lead','188a0ff1e830261d0253b185a1c0f94f','QA Lead','2','yes'),
-(11,'Ben Flowers','wh_manager','188a0ff1e830261d0253b185a1c0f94f','Warehouse Manager','2','yes');
-(12,'Ben Flowers','test','test','Warehouse Manager','0','yes');
+(11,'Ben Flowers','wh_manager','188a0ff1e830261d0253b185a1c0f94f','Warehouse Manager','2','yes'),
+(12,'test','test','098f6bcd4621d373cade4e832627b4f6','developer','0','yes');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 

@@ -8,7 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $u = mysqli_real_escape_string($conn, $_POST['username']);
     $p = md5($_POST['password']);
 
-    $res = mysqli_query($conn, "SELECT id, username, role
+    $res = mysqli_query($conn, "SELECT id, username, role, must_reset_password
         FROM users
         WHERE username='$u' AND password='$p'
         LIMIT 1
