@@ -11,12 +11,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $cat  = (int)$_POST['category_id'];
     $price= (float)$_POST['price'];
     $stock= (int)$_POST['stock'];
+    $country = mysqli_real_escape_string($conn, $_POST['country']);
+    $class = mysqli_real_escape_string($conn, $_POST['class']);
+    $pack_uom = mysqli_real_escape_string($conn, $_POST['pack_uom']);
+    $default_pack_weight = !empty($_POST['default_pack_weight']) ? (int)$_POST['default_pack_weight'] : 'NULL';
+    $best_before_days = (int)$_POST['best_before_days'];
+    $lot_prefix = mysqli_real_escape_string($conn, $_POST['lot_prefix']);
 
     mysqli_query($conn, 
            "UPDATE products SET
             sku='$sku', name='$name',
             category_id=".($cat?:'NULL').",
-            price=$price, stock=$stock
+            price=$price, stock=$stock,
+            country='$country',
+            class='$class',
+            pack_uom='$pack_uom',
+            default_pack_weight=$default_pack_weight,
+            best_before_days=$best_before_days,
+            lot_prefix='$lot_prefix'
         WHERE id=$id
     ");
     header('Location: products.php?msg=updated');
@@ -53,6 +65,37 @@ $cats = mysqli_query($conn, "SELECT id, name FROM categories ORDER BY name");
                 </option>
             <?php endwhile; ?>
         </select>
+    </label>
+
+    <label>Country
+        <input type= "text" name="country" value="<?php echo htmlspecialchars($row['country']); ?>" required>
+    </label>
+
+    <label>Class
+        <input type= "text" name="class" value="<?php echo htmlspecialchars($row['class']); ?>" required>
+    </label>
+
+    <label>Pack UOM
+        <select name="pack_uom" required>
+            <option value="">- none -</option>
+            <option value="each" <?php if ($row['pack_uom'] == 'each') echo 'selected'; ?>>each</option>
+            <option value="g" <?php if ($row['pack_uom'] == 'g') echo 'selected'; ?>>g (grams)</option>
+        </select>
+    </label>
+
+    <label>Default Pack Weight (g)
+        <input type="number" step="1" name="default_pack_weight" 
+               value="<?php echo !empty($row['default_pack_weight']) ? (int)$row['default_pack_weight'] : ''; ?>"
+               min="0" placeholder="Only for packaged items">
+    </label>
+
+    <label>Best Before Days
+        <input type="number" name="best_before_days" 
+               value="<?php echo $row['best_before_days']; ?>" required min="0">
+    </label>
+
+    <label>Lot Prefix
+        <input type="text" name="lot_prefix" value="<?php echo htmlspecialchars($row['lot_prefix']); ?>" required maxlength="10">
     </label>
 
     <label>Price (£)

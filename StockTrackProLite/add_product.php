@@ -9,15 +9,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $cat   = (int)$_POST['category_id'];
     $price = (float)$_POST['price'];
     $stock = (int)$_POST['stock'];
+    $country = mysqli_real_escape_string($conn, $_POST['country']);
+    $class = mysqli_real_escape_string($conn, $_POST['class']);
+    $pack_uom = mysqli_real_escape_string($conn, $_POST['pack_uom']);
+    $default_pack_weight = !empty($_POST['default_pack_weight']) ? (int)$_POST['default_pack_weight'] : 'NULL';
+    $best_before_days = (int)$_POST['best_before_days'];
+    $lot_prefix = mysqli_real_escape_string($conn, $_POST['lot_prefix']);
 
     mysqli_query($conn,
-       "INSERT INTO products (sku, name, category_id, price, stock)
+       "INSERT INTO products (sku, name, category_id, price, stock, country, class, pack_uom, default_pack_weight, best_before_days, lot_prefix)
         VALUES (
             '$sku',
             '$name',
             ".($cat ?: 'NULL').",
             $price,
-            $stock
+            $stock,
+            '$country',
+            '$class',
+            '$pack_uom',
+            $default_pack_weight,
+            $best_before_days,
+            '$lot_prefix'
         )
     ");
 
@@ -48,6 +60,34 @@ $cats = mysqli_query($conn, "SELECT id, name FROM categories ORDER BY name");
                 </option>
             <?php endwhile; ?>
         </select>
+    </label>
+
+    <label>Country
+        <input type="text" name="country" required>
+    </label>
+
+    <label>Class
+        <input type="text" name="class" required maxlength="10" placeholder="e.g., I, II, III">
+    </label>
+
+    <label>Pack UOM
+        <select name="pack_uom" required>
+            <option value="">- none -</option>
+            <option value="each">each</option>
+            <option value="g">g (grams)</option>
+        </select>
+    </label>
+
+    <label>Default Pack Weight (g)
+        <input type="number" name="default_pack_weight" placeholder="Only for packaged items">
+    </label>
+
+    <label>Best Before Days
+        <input type="number" name="best_before_days" required>
+    </label>
+
+    <label>Lot Prefix
+        <input type="text" name="lot_prefix" required maxlength="2">
     </label>
 
     <label>Price (£)

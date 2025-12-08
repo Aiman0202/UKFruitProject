@@ -184,7 +184,7 @@ CREATE TABLE `products` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `sku` varchar(30) NOT NULL,
   `name` varchar(100) NOT NULL,
-  `category_id` int(11) DEFAULT NULL,
+  `category_id` int(11) NOT NULL,
   `price` decimal(10,2) NOT NULL,
   `stock` int(11) NOT NULL DEFAULT 0,
   `is_active` TINYINT(1) NOT NULL DEFAULT 1,
@@ -216,16 +216,16 @@ INSERT INTO `products` (`id`,`sku`,`name`,`category_id`,`price`,`stock`,`is_acti
 (7,'LF-PCH-008','Peach (loose, seasonal)',1,0.40,170,1,'ES','I','each',NULL,5,'PC'),
 (8,'LF-PER-004','Pear – Conference (loose)',1,0.28,270,1,'NL','I','each',NULL,7,'PE'),
 (9,'PF-APL-101','Apples – Braeburn Bag (6 pack)',2,1.40,110,1,'UK','I','g',900,8,'AP'),
-(10,'PF-APL-102','Apples – Granny Smith Bag (6 pack)',3,1.45,100,1,'UK','I','each',NULL,7,'AP'),
+(10,'PF-APL-102','Apples – Granny Smith Bag (6 pack)',2,1.45,100,1,'UK','I','each',NULL,7,'AP'),
 (11,'PF-BAN-001','Bananas (pack of 6)',2,1.60,90,1,'Jamaica','III','g',850,15,'BA'),
-(12,'PF-BAN-103','Bananas – Family Bag (8-10)',3,1.60,90,1,'EC','I','each',NULL,5,'BN'),
+(12,'PF-BAN-103','Bananas – Family Bag (8-10)',2,1.60,90,1,'EC','I','each',NULL,5,'BN'),
 (13,'PF-BLU-109','Blueberries – Sunshine Blue Punnet (300g)',2,2.30,35,1,'South Africa','II','g',300,10,'BL'),
-(14,'PF-BRY-107','Strawberries Punnet (400 g)',3,2.50,40,1,'UK','I','g',400,3,'ST'),
-(15,'PF-BRY-108','Blueberries Punnet (250 g)',3,2.30,35,1,'UK','I','g',250,5,'BB'),
-(16,'PF-GRP-105','Grapes – Red Seedless Punnet (500 g)',3,2.20,60,1,'ES','I','g',500,7,'GR'),
+(14,'PF-BRY-107','Strawberries Punnet (400 g)',2,2.50,40,1,'UK','I','g',400,3,'ST'),
+(15,'PF-BRY-108','Blueberries Punnet (250 g)',2,2.30,35,1,'UK','I','g',250,5,'BB'),
+(16,'PF-GRP-105','Grapes – Red Seedless Punnet (500 g)',2,2.20,60,1,'ES','I','g',500,7,'GR'),
 (17,'PF-GRP-106','Grapes – Green Seedless Punnet (500g)',2,2.15,65,1,'Spain','II','g',500,14,'GR'),
-(18,'PF-MDT-104','Mandarins – Net (1 kg)',3,1.95,75,1,'ES','I','g',1000,10,'MD'),
-(19,'PF-PIN-109','Pineapple Chunks (200 g)',3,1.99,0,1,'CR','I','g',200,5,'PN');
+(18,'PF-MDT-104','Mandarins – Net (1 kg)',2,1.95,75,1,'ES','I','g',1000,10,'MD'),
+(19,'PF-PIN-109','Pineapple Chunks (200 g)',2,1.99,0,1,'CR','I','g',200,5,'PN');
 /*!40000 ALTER TABLE `products` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -251,8 +251,7 @@ CREATE TABLE `categories` (
 LOCK TABLES `categories` WRITE;
 /*!40000 ALTER TABLE `categories` DISABLE KEYS */;
 INSERT INTO `categories` VALUES (1,'Loose Fruit','Individual fresh fruits sold by weight of each'),
-(2,'Pre-packaged Fruit','Fruit pre-packed in net, punnets or tubs'),
-(3,'Packaged Fruit','Fruit packed in bags or punnets');
+(2,'Pre-packaged Fruit','Fruit pre-packed in net, punnets or tubs');
 /*!40000 ALTER TABLE `categories` ENABLE KEYS */;
 UNLOCK TABLES;
 
