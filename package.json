@@ -1,0 +1,22 @@
+{
+  "name": "htdocs",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Aiman0202/UKFruitProject.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Aiman0202/UKFruitProject/issues"
+  },
+  "homepage": "https://github.com/Aiman0202/UKFruitProject#readme",
+  "description": "",
+  "devDependencies": {
+    "@playwright/test": "^1.57.0",
+    "@types/node": "^24.10.2"
+  }
+}
