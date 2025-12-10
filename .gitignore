@@ -471,3 +471,11 @@ composer.lock
 *.css.map
 *.sass.map
 *.scss.map
+
+# Playwright
+node_modules/
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+/playwright/.auth/
