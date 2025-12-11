@@ -1,3 +1,4 @@
+ <link rel="stylesheet" href="../css/style.css">
 <?php
 session_start();
 include 'includes/db.php';
@@ -24,13 +25,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 ?>
 
-<form method="POST">
-    <h2>You must change your password</h2>
+<div class="forced-password-change">
+    <form method="POST">
 
-    <input type="password"
-           name="new_password"
-           placeholder="Enter new password"
-           required><br><br>
+     <img src="assets/UKFruit2010.png" width="350" alt="Customer Logo" class="logo">
+        <h2>You must change your password</h2>
 
-    <button type="submit">Update Password</button>
-</form>
+        <input type="password"
+            name="new_password"
+            placeholder="Enter new password"
+            required><br><br>
+
+        <button type="submit">Update Password</button>
+    </form>
+</div>

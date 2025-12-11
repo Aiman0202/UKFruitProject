@@ -1,36 +1,39 @@
-<?php
-session_start();
-include 'includes/db.php';
+<div class="forced-password-change">
 
-if (!isset($_SESSION['user_id'])) {
-    header('Location: index.php');
-    exit();
-}
+    <?php
+    session_start();
+    include 'includes/db.php';
 
-$user_id = $_SESSION['user_id'];
+    if (!isset($_SESSION['user_id'])) {
+        header('Location: index.php');
+        exit();
+    }
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $user_id = $_SESSION['user_id'];
 
-    $new_pass = md5($_POST['new_password']);
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-    $sql = "UPDATE users 
-            SET password='$new_pass', must_reset_password='no'
-            WHERE id='$user_id'";
+        $new_pass = md5($_POST['new_password']);
 
-    mysqli_query($conn, $sql);
+        $sql = "UPDATE users 
+                SET password='$new_pass', must_reset_password='no'
+                WHERE id='$user_id'";
 
-    header('Location: dashboard.php');
-    exit();
-}
-?>
+        mysqli_query($conn, $sql);
 
-<form method="POST">
-    <h2>You must change your password</h2>
+        header('Location: dashboard.php');
+        exit();
+    }
+    ?>
 
-    <input type="password"
-           name="new_password"
-           placeholder="Enter new password"
-           required><br><br>
+    <form method="POST">
+        <h2>You must change your password</h2>
 
-    <button type="submit">Update Password</button>
-</form>
+        <input type="password"
+            name="new_password"
+            placeholder="Enter new password"
+            required><br><br>
+
+        <button type="submit">Update Password</button>
+    </form>
+</div>
