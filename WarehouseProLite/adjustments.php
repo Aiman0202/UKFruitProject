@@ -2,13 +2,11 @@
 include 'includes/db.php';
 include 'includes/header.php';
 
-/* Flash message */
 $flash = '';
 if (isset($_GET['msg']) && $_GET['msg'] === 'deleted') {
     $flash = '<p class="notice">Adjustment deleted.</p>';
 }
 
-/* Fetch journal */
 $res = mysqli_query($conn, "SELECT  a.id,
             a.qty_delta,
             a.reason,

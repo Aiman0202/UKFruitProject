@@ -1,5 +1,4 @@
 <?php
-/* dashboard.php – WarehouseProLite overview */
 include 'includes/db.php';
 include 'includes/header.php';
 

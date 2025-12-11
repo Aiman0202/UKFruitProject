@@ -49,7 +49,6 @@ $res = mysqli_query($conn, "SELECT p.id, p.sku, p.name, p.price, p.stock,
             <td><?php echo number_format($row['price'],2); ?></td>
             <td><?php echo $row['stock']; ?></td>
             <td>
-                <!-- NEW links -->
                 <a href="product_edit.php?id=<?php echo $row['id']; ?>">Edit</a> |
                 <a href="product_delete.php?id=<?php echo $row['id']; ?>"
                    onclick="return confirm('Delete this product?');">Delete</a>

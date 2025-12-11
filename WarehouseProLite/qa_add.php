@@ -1,9 +1,7 @@
 <?php
-/* qa_add.php – log a new QA sample */
 include 'includes/db.php';
 include 'includes/header.php';
 
-/* ---------- INSERT on POST ---------- */
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $pid  = (int)$_POST['product_id'];
@@ -12,7 +10,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $pass = mysqli_real_escape_string($conn, $_POST['passed']);
     $note = mysqli_real_escape_string($conn, $_POST['note']);
 
-    /* get current user ID or NULL */
     $tech = isset($_SESSION['wh_user_id']) ? (int)$_SESSION['wh_user_id'] : 'NULL';
 
     $ok = mysqli_query($conn,
@@ -30,7 +27,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     exit();
 }
 
-/* ---------- Build product dropdown ---------- */
 $prods = mysqli_query($conn, "SELECT id, sku, name FROM products ORDER BY name");
 ?>
 <h2>Add QA Sample</h2>

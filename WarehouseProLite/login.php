@@ -29,7 +29,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-/* failed login — back to index with error flag */
 header('Location: index.php?error=1');
 exit();
 ?>

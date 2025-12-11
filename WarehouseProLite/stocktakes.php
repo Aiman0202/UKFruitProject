@@ -2,9 +2,6 @@
 include 'includes/db.php';
 include 'includes/header.php';
 
-/* -------------------------------------------------
-   Stock-take list (JOIN + GROUP BY)
-------------------------------------------------- */
 $sql = "SELECT  t.id,
             t.taken_at,
             t.reconciled,
@@ -34,8 +31,8 @@ if (!$takes) {
   <?php else: while ($row = mysqli_fetch_assoc($takes)): ?>
       <?php
         $statusIcon = ($row['reconciled'] === 'yes')
-            ? '<span style="color:#2e8b57;">&#10004;</span>'   // green check
-            : '<span style="color:#d97b00;">&#9888;</span>';    // amber warning
+            ? '<span style="color:#2e8b57;">&#10004;</span>'  
+            : '<span style="color:#d97b00;">&#9888;</span>';    
       ?>
       <tr>
         <td><?php echo $row['id']; ?></td>

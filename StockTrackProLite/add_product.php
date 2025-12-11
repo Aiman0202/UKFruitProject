@@ -2,7 +2,6 @@
 include __DIR__ . '/includes/db.php';
 include __DIR__ . '/includes/header.php';
 
-/* ---------- Handle INSERT ---------- */
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $sku   = mysqli_real_escape_string($conn, $_POST['sku']);
     $name  = mysqli_real_escape_string($conn, $_POST['name']);
@@ -37,7 +36,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     exit();
 }
 
-/* ------- Load categories for drop-down ------- */
 $cats = mysqli_query($conn, "SELECT id, name FROM categories ORDER BY name");
 ?>
 <h2>Add Product</h2>

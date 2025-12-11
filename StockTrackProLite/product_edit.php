@@ -4,7 +4,6 @@ include __DIR__ . '/includes/header.php';
 
 $id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
 
-/* ---------- save ---------- */
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $sku  = mysqli_real_escape_string($conn, $_POST['sku']);
     $name = mysqli_real_escape_string($conn, $_POST['name']);
@@ -35,11 +34,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     exit();
 }
 
-/* load row */
 $row = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM products WHERE id=$id"));
 if (!$row) { echo "<p class='notice'>Product not found.</p>"; include __DIR__ . '/includes/footer.php'; exit; }
 
-/* categories for dropdown */
 $cats = mysqli_query($conn, "SELECT id, name FROM categories ORDER BY name");
 ?>
 <h2>Edit Product</h2>

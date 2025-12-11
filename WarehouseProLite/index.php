@@ -5,7 +5,6 @@ if (isset($_SESSION['wh_user'])) {
     exit();
 }
 
-/* simple flag for bad credentials */
 $invalid = isset($_GET['error']);
 ?>
 <!DOCTYPE html>

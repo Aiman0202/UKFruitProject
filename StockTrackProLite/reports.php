@@ -2,7 +2,6 @@
 include __DIR__ . '/includes/db.php';
 include __DIR__ . '/includes/header.php';
 
-/* 1. Monthly sales (last 12 months) */
 $monthly = mysqli_query($conn, "SELECT DATE_FORMAT(order_date,'%Y-%m') AS ym,
            COUNT(*) AS orders,
            SUM(total) AS revenue
@@ -14,7 +13,6 @@ $monthly = mysqli_query($conn, "SELECT DATE_FORMAT(order_date,'%Y-%m') AS ym,
 
 $monthlyData = mysqli_fetch_all($monthly, MYSQLI_ASSOC);
 
-/* 2. Top 5 customers by spend (last 12 months) */
 $topCust = mysqli_query($conn, "SELECT c.name,
            COUNT(o.id)  AS num_orders,
            SUM(o.total) AS spend
@@ -28,7 +26,6 @@ $topCust = mysqli_query($conn, "SELECT c.name,
 
 $topCustomers = mysqli_fetch_all($topCust, MYSQLI_ASSOC);
 
-/* 3. Low-stock products (< 20) */
 $lowStock = mysqli_query($conn, "SELECT sku, name, stock
     FROM products
     WHERE stock < 20
@@ -37,7 +34,6 @@ $lowStock = mysqli_query($conn, "SELECT sku, name, stock
 
 $lowStockItems = mysqli_fetch_all($lowStock, MYSQLI_ASSOC);
 
-// labels and revenues for chart
 $labels   = array_column($monthlyData, 'ym');
 $revenues = array_map(fn($row) => round($row['revenue'], 2), $monthlyData);
 ?>

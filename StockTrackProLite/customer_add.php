@@ -1,9 +1,7 @@
 <?php
-/* customer_add.php – Create a new customer */
 include __DIR__ . '/includes/db.php';
 include __DIR__ . '/includes/header.php';
 
-/* ------- Handle INSERT ------- */
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $name    = mysqli_real_escape_string($conn, $_POST['name']);
     $phone   = mysqli_real_escape_string($conn, $_POST['phone']);

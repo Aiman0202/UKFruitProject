@@ -1,9 +1,7 @@
 <?php
-/* delivery_add.php – record a goods-in delivery */
 include 'includes/db.php';
 include 'includes/header.php';
 
-/* ---------- INSERT on POST ---------- */
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $pid = (int)$_POST['product_id'];
     $qty = (int)$_POST['qty'];
@@ -14,7 +12,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         VALUES ($pid, $qty, NOW(), '$ref')
     ");
 
-        /* bump current stock */
     mysqli_query($conn, 
        "UPDATE products
         SET stock = stock + $qty
@@ -25,7 +22,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     exit();
 }
 
-/* ---------- Build product dropdown ---------- */
 $prods = mysqli_query($conn, "SELECT id, sku, name FROM products ORDER BY name");
 ?>
 <h2>Record Delivery</h2>

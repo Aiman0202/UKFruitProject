@@ -1,38 +1,32 @@
 <?php
-/* stocktake_new.php – create stock-take & capture counts */
 include 'includes/db.php';
 include 'includes/header.php';
 
-/* ---------- Handle first POST: create stock_take header ---------- */
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['create_take'])) {
 
-    /* use real clerk id, or NULL if not stored in session */
     $clerk = isset($_SESSION['wh_user_id']) ? (int)$_SESSION['wh_user_id'] : 'NULL';
 
     mysqli_query($conn, "INSERT INTO stock_takes (taken_at, clerk_id, note)
         VALUES (NOW(), $clerk, '')
     ");
 
-    /* bail if insert failed */
     if (!mysqli_insert_id($conn)) {
         die('Insert failed: '.mysqli_error($conn));
     }
 
     $takeId = mysqli_insert_id($conn);
 
-    /* use double quotes so $takeId is interpolated */
     header("Location: stocktake_new.php?take=$takeId");
     exit();
 }
 
 
-/* ------------ Handle save counts (second POST) ------------- */
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save_lines'])) {
     $takeId = (int)$_POST['take_id'];
     foreach ($_POST['count'] as $pid => $qty) {
         $pid  = (int)$pid;
         $qty  = (int)$qty;
-        if ($qty === 0) continue;   // skip blanks
+        if ($qty === 0) continue;   
         mysqli_query($conn, "INSERT INTO stock_take_lines (stock_take_id, product_id, counted_qty)
             VALUES ($takeId, $pid, $qty)
             ON DUPLICATE KEY UPDATE counted_qty=$qty
@@ -42,7 +36,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save_lines'])) {
     exit();
 }
 
-/* ---------- If no take yet, show “Create” button ---------- */
 if (!isset($_GET['take'])):
 ?>
 <h2>New Stock-Take</h2>
@@ -57,7 +50,6 @@ include 'includes/footer.php';
 exit();
 endif;
 
-/* ---------- Show counting form ---------- */
 $takeId = (int)$_GET['take'];
 $prods  = mysqli_query($conn, "SELECT id, sku, name, stock FROM products ORDER BY name");
 ?>

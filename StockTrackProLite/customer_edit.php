@@ -1,11 +1,9 @@
 <?php
-/* customer_edit.php – View / update single customer */
 include __DIR__ . '/includes/db.php';
 include __DIR__ . '/includes/header.php';
 
 $id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
 
-/* ------- Handle SAVE (POST) ------- */
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $name    = mysqli_real_escape_string($conn, $_POST['name']);
     $phone   = mysqli_real_escape_string($conn, $_POST['phone']);
@@ -25,7 +23,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     exit();
 }
 
-/* ------- Load existing row ------- */
 $res = mysqli_query($conn, "SELECT * FROM customers WHERE id=$id");
 if (!$row = mysqli_fetch_assoc($res)) {
     echo '<p class="notice">Customer not found.</p>';

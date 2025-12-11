@@ -1,6 +1,6 @@
 <?php
 include 'includes/db.php';
-include 'includes/auth.php';      // ensure only logged users can delete
+include 'includes/auth.php';     
 
 $id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
 if ($id) {

@@ -4,7 +4,6 @@ include __DIR__ . '/includes/header.php';
 
 $id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
 
-/* header */
 $hdr = mysqli_fetch_assoc(mysqli_query($conn, 
    "SELECT o.*, c.name AS customer
     FROM orders o
@@ -17,7 +16,6 @@ if (!$hdr) {
     exit();
 }
 
-/* lines */
 $lines = mysqli_query($conn, 
    "SELECT oi.*, p.name
     FROM order_items oi

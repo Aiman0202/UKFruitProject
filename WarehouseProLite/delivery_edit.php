@@ -1,17 +1,14 @@
 <?php
-/* delivery_edit.php – update an existing delivery */
 include 'includes/db.php';
 include 'includes/header.php';
 
 $id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
 
-/* ---------- Update on POST ---------- */
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $pidNew = (int)$_POST['product_id'];
     $qtyNew = (int)$_POST['qty'];
     $refNew = mysqli_real_escape_string($conn, $_POST['ref']);
 
-    /* fetch old row (needed if you adjust stock) */
     $old = mysqli_fetch_assoc(mysqli_query($conn, "SELECT product_id, qty FROM deliveries WHERE id=$id"));
 
     mysqli_query($conn,
@@ -24,7 +21,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $delta = $qtyNew - $old['qty'];
 
-/* same SKU updated */
 if ($pidNew == $old['product_id']) {
     mysqli_query($conn, 
        "UPDATE products
@@ -32,15 +28,12 @@ if ($pidNew == $old['product_id']) {
         WHERE id = $pidNew
     ");
 }
-/* SKU was changed */
 else {
-    /* subtract from old product */
     mysqli_query($conn, 
        "UPDATE products
         SET stock = stock - {$old['qty']}
         WHERE id = {$old['product_id']}
     ");
-    /* add to new product */
     mysqli_query($conn, 
        "UPDATE products
         SET stock = stock + $qtyNew
@@ -53,7 +46,6 @@ else {
     exit();
 }
 
-/* ---------- Load existing row ---------- */
 $row = mysqli_fetch_assoc(mysqli_query($conn, 
    "SELECT d.*, p.sku, p.name
     FROM deliveries d
@@ -66,7 +58,6 @@ if (!$row) {
     exit();
 }
 
-/* Products for dropdown */
 $prods = mysqli_query($conn, "SELECT id, sku, name FROM products ORDER BY name");
 ?>
 <h2>Edit Delivery #<?php echo $id; ?></h2>

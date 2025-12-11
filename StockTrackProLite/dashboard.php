@@ -1,27 +1,19 @@
 <?php
-/* dashboard.php – legacy “sexy” summary */
 include __DIR__ . '/includes/db.php';
 include __DIR__ . '/includes/header.php';
 
-/* --- Quick KPIs --- */
 $totCust = mysqli_fetch_assoc(mysqli_query($conn, "SELECT COUNT(*) AS total FROM customers"))['total'];
 $totProd = mysqli_fetch_assoc(mysqli_query($conn, "SELECT COUNT(*) AS total FROM products"))['total'];
 $totOrders = mysqli_fetch_assoc(mysqli_query($conn, "SELECT COUNT(*) AS total FROM orders"))['total'];
 
-
-/* low-stock threshold */
 $lowCount = mysqli_fetch_assoc(mysqli_query($conn, "SELECT COUNT(*) AS total FROM products WHERE stock < 20"))['total'];
 
-
-/* orders this month */
 $monthOrders = mysqli_fetch_assoc(mysqli_query($conn, "SELECT COUNT(*) AS total
     FROM orders
     WHERE YEAR(order_date) = YEAR(CURDATE())
       AND MONTH(order_date) = MONTH(CURDATE())
 "))['total'];
 
-
-/* most recent 5 orders */
 $recent = mysqli_query($conn, "SELECT o.id, o.order_date, o.total, c.name AS customer
     FROM orders o
     LEFT JOIN customers c ON c.id = o.customer_id

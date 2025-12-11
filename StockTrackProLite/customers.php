@@ -1,16 +1,13 @@
 <?php
-/* customers.php  –  List + simple actions */
 include __DIR__ . '/includes/db.php';
 include __DIR__ . '/includes/header.php';
 
-/* Fetch all customers (alphabetical) */
 $result = mysqli_query($conn, "SELECT id, name, phone, email, address
     FROM customers
     WHERE is_active = 1
     ORDER BY name ASC
 ");
 
-/* Flash message */
 $flash = '';
 if (isset($_GET['msg']) && $_GET['msg'] === 'deleted') {
     $flash = '<p class="notice">Customer deleted.</p>';

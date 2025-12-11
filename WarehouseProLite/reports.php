@@ -2,7 +2,6 @@
 include 'includes/db.php';
 include 'includes/header.php';
 
-/* 1. Deliveries received today ----------------------- */
 $delivToday = mysqli_query($conn, "SELECT d.id,
            d.received_at,
            p.sku,
@@ -15,7 +14,6 @@ $delivToday = mysqli_query($conn, "SELECT d.id,
     ORDER BY d.received_at DESC
 ");
 
-/* 2. Adjustments last 30 days ------------------------ */
 $adj30 = mysqli_query($conn, "SELECT a.id,
            a.created_at,
            p.sku,
@@ -28,7 +26,6 @@ $adj30 = mysqli_query($conn, "SELECT a.id,
     ORDER BY a.created_at DESC
 ");
 
-/* 3. QA samples that failed in last 30 days ---------- */
 $qaFail = mysqli_query($conn, "SELECT q.id,
            q.sample_time,
            p.sku,
@@ -44,7 +41,6 @@ $qaFail = mysqli_query($conn, "SELECT q.id,
 ?>
 <h2>Warehouse Reports</h2>
 
-<!-- Deliveries Today -->
 <h3>Deliveries Today (<?php echo date('Y-m-d'); ?>)</h3>
 <table>
   <thead><tr><th>ID</th><th>Time</th><th>SKU</th><th>Name</th><th>Qty</th><th>Supplier Ref</th></tr></thead>
@@ -64,7 +60,6 @@ $qaFail = mysqli_query($conn, "SELECT q.id,
   </tbody>
 </table>
 
-<!-- Adjustments last 30 days -->
 <h3>Adjustments (last 30 days)</h3>
 <table>
   <thead><tr><th>ID</th><th>Date</th><th>SKU</th><th>Name</th><th>Δ Qty</th><th>Reason</th></tr></thead>
@@ -84,7 +79,6 @@ $qaFail = mysqli_query($conn, "SELECT q.id,
   </tbody>
 </table>
 
-<!-- QA fails last 30 days -->
 <h3>QA Failures (last 30 days)</h3>
 <table>
   <thead><tr><th>ID</th><th>Date</th><th>SKU</th><th>Name</th><th>Brix</th><th>Temp °C</th></tr></thead>

@@ -1,20 +1,14 @@
 <?php
-/* adjustment_add.php – create +/- stock adjustment
-   Optional query params:
-   ?pid=11&delta=-20   → pre-fill product and qty_delta
-*/
 include 'includes/db.php';
 include 'includes/header.php';
 
 $takeId = isset($_GET['take']) ? (int)$_GET['take'] : 0;
 
-/* --------- Save on POST --------- */
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $pid   = (int)$_POST['product_id'];
     $delta = (int)$_POST['qty_delta'];
     $reason= mysqli_real_escape_string($conn, $_POST['reason']);
 
-    /* approved_by could be the logged-in user’s ID; using 0 for legacy demo */
     $uid   = isset($_SESSION['wh_user_id']) ? (int)$_SESSION['wh_user_id'] : 'NULL';
 
     mysqli_query($conn, 
@@ -39,7 +33,6 @@ if ($takeId > 0) {
 exit();
 }
 
-/* ---------- Load products for drop-down ---------- */
 $prods = mysqli_query($conn, "SELECT id, sku, name FROM products ORDER BY name");
 
 $prefillPid   = isset($_GET['pid'])   ? (int)$_GET['pid']   : '';

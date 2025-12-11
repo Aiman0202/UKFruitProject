@@ -2,7 +2,6 @@
 include 'includes/db.php';
 include 'includes/header.php';
 
-/* ---------- flash notice ---------- */
 $flash = '';
 if (isset($_GET['msg'])) {
     if ($_GET['msg'] === 'added')   $flash = '<p class="notice">QA sample added.</p>';
@@ -10,7 +9,6 @@ if (isset($_GET['msg'])) {
     if ($_GET['msg'] === 'deleted') $flash = '<p class="notice">QA sample deleted.</p>';
 }
 
-/* ---------- fetch samples (latest first) ---------- */
 $samples = mysqli_query($conn, "SELECT q.id,
            q.sample_time,
            p.sku,
@@ -40,7 +38,6 @@ $samples = mysqli_query($conn, "SELECT q.id,
       <tr><td colspan="8">No QA samples recorded.</td></tr>
   <?php else: while ($r = mysqli_fetch_assoc($samples)): ?>
       <?php
-        /* highlight fails */
         $rowStyle = ($r['passed'] === 'no') ? "style='background:#ffecec;color:#a00;'" : "";
         $status   = ucfirst($r['passed']);
       ?>

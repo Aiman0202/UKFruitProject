@@ -2,12 +2,10 @@
 include __DIR__ . '/includes/db.php';
 include __DIR__ . '/includes/header.php';
 
-/* ---------------- Handle POST save ---------------- */
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $cust = (int)$_POST['customer_id'];
-    $items = $_POST['item'];          // array [product_id => qty]
+    $items = $_POST['item'];  
 
-    /* calculate totals and build SQL values */
     $total = 0;
     $values = [];
     foreach ($items as $pid => $qty) {
@@ -17,22 +15,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             continue;
         }
 
-        /* get unit price */
         $p = mysqli_fetch_assoc(mysqli_query($conn, "SELECT price, stock FROM products WHERE id=$pid"));
         $linePrice = $p['price'] * $qty;
         $values[] = "($pid, %ORDER_ID%, $qty, {$p['price']})";
         $total += $linePrice;
 
-        /* reduce stock */
         mysqli_query($conn, "UPDATE products SET stock = stock - $qty WHERE id=$pid");
     }
 
     if ($cust && $total > 0) {
-        /* create order header */
         mysqli_query($conn, "INSERT INTO orders (customer_id, order_date, total) VALUES ($cust, NOW(), $total)");
         $orderId = mysqli_insert_id($conn);
 
-        /* insert order lines */
         foreach ($values as $v) {
             $v = str_replace('%ORDER_ID%', $orderId, $v);
             mysqli_query($conn, "INSERT INTO order_items (product_id, order_id, quantity, price) VALUES $v");
@@ -45,7 +39,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     echo '<p class="notice">Something went wrong — check quantities.</p>';
 }
 
-/* ---------------- Load customers + products ---------------- */
 $customers = mysqli_query($conn, "SELECT id, name FROM customers ORDER BY name");
 $products  = mysqli_query($conn, "SELECT id, name, price, stock FROM products ORDER BY name");
 ?>

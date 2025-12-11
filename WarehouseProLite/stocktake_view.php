@@ -4,14 +4,12 @@ include 'includes/header.php';
 
 $takeId = isset($_GET['id']) ? (int)$_GET['id'] : 0;
 
-/* ---------- Final-approve handler ---------- */
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['finalise'])) {
     mysqli_query($conn, "UPDATE stock_takes SET reconciled='yes' WHERE id=$takeId");
-    header('Location: stocktakes.php');   // back to history list
+    header('Location: stocktakes.php');
     exit();
 }
 
-/* ---------- Pull variance lines ---------- */
 $lines = mysqli_query($conn, "
     SELECT 
         p.id AS pid,
@@ -68,7 +66,6 @@ while ($r = mysqli_fetch_assoc($lines)):
 </tbody>
 </table>
 
-<!-- Final-approve form -->
 <form method="post" style="margin-top:1rem;">
   <input type="hidden" name="finalise" value="1">
   <input type="submit"
@@ -83,6 +80,6 @@ while ($r = mysqli_fetch_assoc($lines)):
 
 <p>
   <a href="stocktake_new.php" class="btn">← New Stock-Take</a> <!--button-->
-  <a href="dashboard.php" class="btn">Dashboard</a><!--button-->
+  <a href="dashboard.php" class="btn">Dashboard</a> <!--button-->
 </p>
 <?php include 'includes/footer.php'; ?>

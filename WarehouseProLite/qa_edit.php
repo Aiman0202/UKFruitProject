@@ -1,11 +1,9 @@
 <?php
-/* qa_edit.php – update a QA sample */
 include 'includes/db.php';
 include 'includes/header.php';
 
 $id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
 
-/* ---------- UPDATE on POST ---------- */
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $pid   = (int)$_POST['product_id'];
     $brix  = $_POST['brix'] !== '' ? (float)$_POST['brix'] : 'NULL';
@@ -27,7 +25,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     exit();
 }
 
-/* ---------- Load existing row ---------- */
 $row = mysqli_fetch_assoc(mysqli_query($conn,
    "SELECT q.*, p.sku, p.name
     FROM qa_samples q
@@ -40,7 +37,6 @@ if (!$row) {
     exit();
 }
 
-/* Products for dropdown */
 $prods = mysqli_query($conn, "SELECT id, sku, name FROM products ORDER BY name");
 ?>
 <h2>Edit QA Sample #<?php echo $id; ?></h2>
