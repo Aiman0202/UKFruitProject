@@ -21,6 +21,7 @@
     <a href='adjustments.php' class='<?php echo basename($_SERVER['PHP_SELF'])=='adjustments.php' ? 'active' :'';?>'>Adjustments</a>
     <a href='qa_samples.php'  class='<?php echo basename($_SERVER['PHP_SELF'])=='qa_samples.php'  ? 'active' :'';?>'>QA Samples</a>
     <a href='reports.php'     class='<?php echo basename($_SERVER['PHP_SELF'])=='reports.php'     ? 'active' :'';?>'>Reports</a>
+    <a href='print_labels.php' class='<?php echo basename($_SERVER['PHP_SELF'])=='print_labels.php' ? 'active' :'';?>'>Labels</a>
     <a href='logout.php' class='right'>Logout</a>
   </nav>
 </header>
