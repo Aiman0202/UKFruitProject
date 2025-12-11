@@ -27,6 +27,7 @@
     --text: #222;
     --text-light: #fff;
     --radius: 6px;
+    --btn-font-size:18px;
 }
 
 
@@ -155,8 +156,9 @@ button {
     border: none;
     padding: .5rem 1rem;
     border-radius: var(--radius);
-    font-weight: 600;
+    /*font-weight: 600;*/
     cursor: pointer;
+    font-size:var(--btn-font-size); /*same font size across buttons*/
 }
 
 input[type=submit]:hover,
@@ -165,6 +167,7 @@ button:hover {
 }
 
 .btn {
+    font-size:var(--btn-font-size);
     background: var(--secondary); /*changed*/
     color: var(--text-light);
     padding: .4rem .8rem;
@@ -174,6 +177,7 @@ button:hover {
 
 /*styling secondary buttons*/
 .btn-secondary{
+    font-size:var(--btn-font-size);
     background: var(--btn-secondary);
     color: var(--text-light);
     padding: .4rem .8rem;
