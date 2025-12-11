@@ -12,18 +12,20 @@ $orders = mysqli_fetch_all(mysqli_query($conn, "SELECT o.id, o.order_date, o.tot
 ?>
 <h2>Orders</h2>
 
-<div style="display:flex; align-items:center; gap: 550px;0px; margin-bottom:12px;">
+<!--style="display:flex; align-items:center; gap: 550px;0px; margin-bottom:12px;"-->
+<!--        style="padding:6px; width:250px; margin-bottom:12px;"-->
+<div class="orders-button-input">
+    <a href="order_new.php" class="btn">+ New Order</a>
 
-<a href="order_new.php" class="btn">+ New Order</a>
-
-<input 
-    type="text" 
-    id="searchCustomer" 
-    placeholder="Search customer name..." 
-    style="padding:6px; width:250px; margin-bottom:12px;"
->
+    <input 
+        type="text" 
+        id="searchCustomer" 
+        placeholder="Search customer name..." 
+    >
 
 </div>
+
+
 
 <table>
     <thead>
@@ -68,3 +70,5 @@ document.getElementById("searchCustomer").addEventListener("keyup", function() {
     });
 });
 </script>
+
+<?php include __DIR__ . '/includes/footer.php'; ?>

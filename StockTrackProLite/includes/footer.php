@@ -1,7 +1,7 @@
 </main>
 
 <footer class="footer">
-    &copy; <?php echo date('Y'); ?> StockTrack Inc.
+    &copy; <?php echo date('Y'); ?> UK Fruit  <!--changed to UK fruit-->
 </footer>
 
 <!-- jQuery (HTTP, v1.11.3) -->

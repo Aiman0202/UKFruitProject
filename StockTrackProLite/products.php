@@ -17,6 +17,7 @@ $res = mysqli_query($conn, "SELECT p.id, p.sku, p.name, p.price, p.stock,
     <a href="add_product.php" class="btn">+ Add Product</a>
 </p>
 
+
 <table>
     <thead>
         <tr>

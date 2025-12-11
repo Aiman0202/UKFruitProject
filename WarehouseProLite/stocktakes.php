@@ -49,4 +49,5 @@ if (!$takes) {
   <a href="stocktake_new.php"  class="btn">Start New Stock-Take</a> <!--turned link to button-->
   <a href="dashboard.php"  class="btn">Dashboard</a> <!--turned link to button-->
 </p>
+
 <?php include 'includes/footer.php'; ?>
