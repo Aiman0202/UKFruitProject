@@ -332,6 +332,21 @@ body.login-page {
 
 
 
+/*forced password change error page styling*/
+.forced-password-change{
+    margin-top: 250;
+    color: var(--text);
+    text-align: center; 
+
+}
+
+.forced-password-change input{
+    max-width: 400;
+    height: 40;
+}
+
+
+
 
 
 
