@@ -21,11 +21,12 @@ $recentQAFails = mysqli_fetch_assoc(
 ?>
 <h2>Dashboard</h2>
 
+<!--adding links to dashboard key performance indicators-->
 <div class="cards">
-  <div class="card"><span class="big"><?php echo $totalDeliveries; ?></span>Total&nbsp;Deliveries</div>
-  <div class="card"><span class="big"><?php echo $todayDeliveries; ?></span>Today</div>
-  <div class="card"><span class="big"><?php echo $recentAdjust; ?></span>Adj&nbsp;(30d)</div>
-  <div class="card"><span class="big"><?php echo $recentQAFails; ?></span>QA&nbsp;Fails&nbsp;(30d)</div>
+   <a href="deliveries.php" class="card"><span class="big" ><?php echo $totalDeliveries; ?></span>Total&nbsp;Deliveries </a>
+   <a href="deliveries.php" class="card"><span class="big"><?php echo $todayDeliveries; ?></span>Today </a>
+   <a href="adjustments.php" class="card"><span class="big"><?php echo $recentAdjust; ?></span>Adj&nbsp;(30d)</a>
+   <a href="qa_samples.php"  class="card"><span class="big"><?php echo $recentQAFails; ?></span>QA&nbsp;Fails&nbsp;(30d) </a>
 </div>
 <br>
 

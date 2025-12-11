@@ -31,12 +31,13 @@ $recent = mysqli_query($conn, "SELECT o.id, o.order_date, o.total, c.name AS cus
 ?>
 <h2>Dashboard</h2>
 
+<!--adding linkd to dashboard key performance indicators-->
 <div class="cards">
-    <div class="card kpi"><span class="big"><?php echo $totCust; ?></span>Customers</div>
-    <div class="card kpi"><span class="big"><?php echo $totProd; ?></span>Products</div>
-    <div class="card kpi"><span class="big"><?php echo $lowCount; ?></span>Low-stock&nbsp;items</div>
-    <div class="card kpi"><span class="big"><?php echo $totOrders; ?></span>Total&nbsp;orders</div>
-    <div class="card kpi"><span class="big"><?php echo $monthOrders; ?></span>Orders&nbsp;this&nbsp;month</div>
+    <a href="customers.php" class="card kpi"><span class="big"><?php echo $totCust; ?></span>Customers</a>
+    <a href="products.php" class="card kpi"><span class="big"><?php echo $totProd; ?></span>Products</a>
+    <a href="products.php" class="card kpi"><span class="big"><?php echo $lowCount; ?></span>Low-stock&nbsp;items</a>
+    <a href="orders.php"  class="card kpi"><span class="big"><?php echo $totOrders; ?></span>Total&nbsp;orders</a>
+    <a href="orders.php" class="card kpi"><span class="big"><?php echo $monthOrders; ?></span>Orders&nbsp;this&nbsp;month</a>
 </div>
 
 <h3>Recent Orders</h3>
