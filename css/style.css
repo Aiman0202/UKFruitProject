@@ -16,12 +16,13 @@
 
     --primary: #1a3734;           /* primary */
     --primary-dark: #102220;      /*Darker*/
-    --secondary: #7070ff;         /* Accent color */
-    --background: #f0f0ff;        /* background */
+    --secondary: #6666d8;         /* Accent color */
+    --background:  url('../assets/background.jpg') center/cover fixed;       /* background */
     --card: #ffffff;           /*Cards*/
+    --access-card:rgba(255, 255, 255, 0.489); 
     --border: #b9b5b5;            /* Borders e.g. table */
 
-    --btn-secondary: #325730;      
+    --btn-secondary: #31952c;      
 
     --gray: #e2e8f0;
     --text: #222;
@@ -120,15 +121,21 @@ th, td {
     padding: .6rem .5rem;
     border-bottom: 1px solid var(--gray);
     text-align: left;
+    font: weight 500px;
 }
 
 th {
-    background: var(--gray);
-    font-weight: 600;
+    background: var(--primary-dark);
+    font-weight: bolder;
+    color: var(--card);
 }
 
 tr:nth-child(even) {
-    background: #f9fbfc;
+    background: #fbfdfd89;
+}
+
+tr:nth-child(odd) {
+    background: #fbfdfd;
 }
 
 /* Forms */
@@ -185,6 +192,13 @@ button:hover {
     text-decoration: none;
 }
 
+
+
+.orders-button-input input{
+    width:250px;
+    margin-bottom:12px;
+    margin-left: 545px;
+}
 
 
 /* Same hover for both */
@@ -330,8 +344,6 @@ body.login-page {
     margin-bottom: 1rem;
 }
 
-
-
 /*forced password change error page styling*/
 .forced-password-change{
     margin-top: 250;
@@ -344,6 +356,62 @@ body.login-page {
     max-width: 400;
     height: 40;
 }
+
+
+
+
+
+
+
+/*added assets.css into style.css*/
+.access-page .logo-heading-container {
+  display: flex;           
+  align-items: center;    
+  justify-content: center; 
+  gap: 5px;             
+  margin-bottom: 10px;
+}
+
+/*specific targeting*/
+.access-page h1{
+  text-align: center;
+  font-size: 70px;
+}
+.access-page h2{
+  text-align: center;
+  font-size: 30px;
+}
+
+.access-page .cards {
+  display: flex;
+  justify-content: center;
+  gap: 100px;
+}
+
+.access-page .card {
+    background: var(--access-card);
+    margin-top:60px;
+    text-align: center;
+    width: 400px;
+    height: 400px;
+}
+
+/*changed the classes to target only access page elements and not interefere with stocktrackpro and warehousepro logins*/
+body.access-page {
+
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  color: var(--text);
+  text-shadow: 1px;
+}
+
+
+
+
+
+
+
+
+
 
 
 
@@ -420,4 +488,58 @@ body.login-page {
   }
 
 
+}
+
+
+
+
+
+
+/*scaling*/  
+
+/*Acces page Media Queries for Mobile*/
+
+@media (max-width: 786px) { /* px for most phones - the breakpoint*/
+  .access-page .logo-heading-container {
+    flex-direction: column;  /* Stack into a column to save space for a small screen */
+  }
+
+  body.access-page {
+    font-size: 30px;  /* Smaller heading for phone */
+    text-align: center;
+  }
+
+
+  .access-page h2 {
+    font-size: 20px;  /* Smaller sub-heading for phone */
+    text-align: center;
+  }
+
+
+  .access-page .logo {
+    width: 150px;  /* Smaller logo */
+  }
+
+  .access-page .platform-options {
+    flex-direction: column;
+    margin-left: 45px;
+    margin-bottom: 40px;
+  }
+  
+
+}
+
+
+@media (max-width: 1024px) { /* the breakpoint for tablet*/
+
+
+  .access-page .platform-options {
+    margin-bottom: 40px; /*just adding more margin at the bottom of the card*/
+      gap: 80px;
+  }
+
+  .access-page .login-option-card { /*login option card slightly smaller for tablet*/
+      width: 280px;   
+      height: 220px;    
+  }
 }
