@@ -48,4 +48,8 @@ $recent = mysqli_query($conn, "SELECT o.id, o.order_date, o.total, c.name AS cus
     </tbody>
 </table>
 
+<br>
+<br>
+<br>
+<br>
 <?php include __DIR__ . '/includes/footer.php'; ?>

@@ -15,7 +15,7 @@
       /*Primary colours*/
 
     --primary: #1a3734;           /* primary */
-    --primary-dark: #102220;      /*Darker*/
+    --primary-dark: #091412;      /*Darker*/
     --secondary: #6666d8;         /* Accent color */
     --background:  url('../assets/background.jpg') center/cover fixed;       /* background */
     --card: #ffffff;           /*Cards*/
@@ -125,7 +125,7 @@ th, td {
 }
 
 th {
-    background: var(--primary-dark);
+    background: var(--primary);
     font-weight: bolder;
     color: var(--card);
 }
@@ -137,6 +137,10 @@ tr:nth-child(even) {
 tr:nth-child(odd) {
     background: #fbfdfd;
 }
+
+
+
+
 
 /* Forms */
 label {
@@ -262,11 +266,16 @@ td .stock-take-count{
 
 /* Footer */
 footer {
-    background: var(--gray);
+    background: var(--primary);
     text-align: center;
     padding: 1rem;
     font-size: .85rem;
+    color: var(--text-light);
+    margin-bottom: 0%;
+    margin-top: 650px; /*Makes sure the footer sticks to the bottom of the page*/
 }
+
+
 
 
 /*test to see what styling was affecting the login pages*/
