@@ -335,7 +335,7 @@ class PrinterHTML {
         try {
             $barcode_data = $this->code39Text($sku);
             $generator = new \Picqer\Barcode\BarcodeGeneratorPNG();
-            $barcode_png = $generator->getBarcode($barcode_data, $generator::TYPE_CODE_39, 2, 50);
+            $barcode_png = $generator->getBarcode($barcode_data, $generator::TYPE_CODE_39, 3, 80);
             if (!$barcode_png || strlen($barcode_png) < 100) {
                 return null;
             }

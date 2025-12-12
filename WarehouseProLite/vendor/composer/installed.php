@@ -3,7 +3,7 @@
         'name' => 'warehousepro/printer',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '5a551f1418c6f543b19d455ed3f0be48d678c927',
+        'reference' => 'c851ac8f2d422c878afffdba86e4c81f973b8a26',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -49,7 +49,7 @@
         'warehousepro/printer' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '5a551f1418c6f543b19d455ed3f0be48d678c927',
+            'reference' => 'c851ac8f2d422c878afffdba86e4c81f973b8a26',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
